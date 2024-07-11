@@ -2,6 +2,7 @@ import 'package:aci_app/constants/button_constant.dart';
 import 'package:aci_app/constants/font_constant.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:aci_app/utils/images.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +35,7 @@ class _BeamColumnState extends State<BeamColumn> {
             Get.back();
           },
           child: const Icon(
-            Icons.arrow_back_ios,
+            CupertinoIcons.back,
             color: Colors.white,
           ),
         ),
