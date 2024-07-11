@@ -1,6 +1,9 @@
+import 'package:aci_app/views/screens/arrangevisit/arrange_visit_page.dart';
 import 'package:aci_app/views/screens/bottom/bottom_nav.dart';
 import 'package:aci_app/views/screens/corrosion/corrosion_screen.dart';
 import 'package:aci_app/views/screens/crack_beam/beam_column.dart';
+import 'package:aci_app/views/screens/faq/faq_page.dart';
+import 'package:aci_app/views/screens/repair/repair_methado.dart';
 import 'package:aci_app/views/screens/signup/signup_screen.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +16,9 @@ class AppRoutes {
   static const String bottomNav = '/dash';
   static const String beam = '/beam';
   static const String corrosion = '/corrosion';
-  // static const String profile2 = '/profile2';
-  // static const String education = '/education';
-  // static const String family = '/family';
+  static const String repair = '/repair';
+  static const String visit = '/visit';
+  static const String faq = '/faq';
   // static const String search = '/search';
   // static const String profileDtls = '/profiledtls';
   // static const String occupation = '/occupation';
@@ -62,24 +65,24 @@ class AppRoutes {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
-    // GetPage(
-    //   name: profile2,
-    //   page: () => const Profile2Page(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: education,
-    //   page: () => const EducationPage(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: family,
-    //   page: () => const FamilyPage(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
+    GetPage(
+      name: repair,
+      page: () => const RepairMethodologyPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
+    GetPage(
+      name: visit,
+      page: () => const ArrangeVisitPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
+    GetPage(
+      name: faq,
+      page: () => const FaqPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
     // GetPage(
     //   name: search,
     //   page: () => const SearchPage(),

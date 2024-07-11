@@ -52,18 +52,24 @@ class CustomTextField extends StatelessWidget {
           maxLines: maxline ?? 1,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.transparent,
+            fillColor: AppColors.textField.withOpacity(0.5),
             hintText: hintText,
             counterText: "",
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppColors.primaryColor),
+              borderSide: const BorderSide(color: Colors.transparent),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.transparent),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.transparent),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: AppColors.primaryColor,
-              ),
+              borderSide: const BorderSide(color: Colors.transparent),
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             prefixIcon: prefixIcon,

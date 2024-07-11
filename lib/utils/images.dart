@@ -1,6 +1,7 @@
 class Images{
-
-  static const String logo = 'assets/images/logo.png';
+  static const String whatsapp = 'assets/images/whatsapp.png';
+  static const String email = 'assets/images/mail.png';
+  static const String logo = 'assets/images/logo2.png';
   static const String repair = 'assets/images/repair.png';
   static const String triangle = 'assets/images/triangle.png';
   static const String rectangle = 'assets/images/Rectangle.png';

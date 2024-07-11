@@ -5,7 +5,7 @@ class CustomBasicButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color color;
   final TextStyle textStyle;
-  final Icon icon;
+  final Image image;
 
   const CustomBasicButton({
     super.key,
@@ -13,30 +13,32 @@ class CustomBasicButton extends StatelessWidget {
     required this.onPressed,
     required this.color,
     required this.textStyle,
-    required this.icon,
+    required this.image,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 55,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: InkWell(
         splashColor: Colors.grey.shade400,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         onTap: onPressed,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
                 width: 15,
               ),
-              icon,
-              const SizedBox(
-                width: 40,
+              image,
+              SizedBox(
+                width: 20,
               ),
               Text(
                 text,
@@ -58,10 +60,10 @@ class CustomSmallButton extends StatelessWidget {
 
   const CustomSmallButton(
       {super.key,
-        required this.text,
-        required this.onPressed,
-        required this.color,
-        required this.textStyle});
+      required this.text,
+      required this.onPressed,
+      required this.color,
+      required this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,7 @@ class CustomSmallButton extends StatelessWidget {
           children: [
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 2),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 2),
               child: Text(
                 text,
                 style: textStyle,
@@ -97,7 +99,7 @@ class CustomShadowButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color color;
   final TextStyle textStyle;
-  final Icon icon;
+  final Icon? icon;
 
   const CustomShadowButton({
     super.key,
@@ -105,23 +107,24 @@ class CustomShadowButton extends StatelessWidget {
     required this.onPressed,
     required this.color,
     required this.textStyle,
-    required this.icon,
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.grey,
-                blurRadius: 5,
-                spreadRadius: 3,
-                blurStyle: BlurStyle.outer)
-          ]),
+        color: color,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.grey,
+              blurRadius: 5,
+              spreadRadius: 0.5,
+              blurStyle: BlurStyle.outer)
+        ],
+      ),
       child: InkWell(
         splashColor: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(20),
@@ -134,7 +137,6 @@ class CustomShadowButton extends StatelessWidget {
               const SizedBox(
                 width: 0,
               ),
-              icon,
               const SizedBox(
                 width: 10,
               ),

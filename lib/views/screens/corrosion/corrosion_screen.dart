@@ -21,11 +21,17 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
   ];
 
   void _onOptionTap(int index) {
-    setState(
-      () {
-        _selectedIndex = index;
-      },
-    );
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) {
+      Get.toNamed('/visit');
+    } else if (index == 1) {
+      Get.toNamed('/repair');
+    } else if (index == 2) {
+      Get.toNamed('/visit');
+    }
   }
 
   @override
