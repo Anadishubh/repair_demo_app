@@ -24,7 +24,7 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             CupertinoIcons.back,
             color: Colors.white,
           ),
@@ -38,14 +38,14 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
             padding: const EdgeInsets.only(top: 20),
             child: Container(
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(Images.logo),
                 ),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -56,13 +56,13 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
                   fontSize: 14, color: AppColors.primaryColor),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 20, right: 10, top: 10),
             child: CustomTextField(
               color: AppColors.textField,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -73,13 +73,13 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
                   fontSize: 14, color: AppColors.primaryColor),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 20, right: 10, top: 10),
             child: CustomTextField(
               color: AppColors.textField,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -90,8 +90,8 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
                   fontSize: 14, color: AppColors.primaryColor),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+          const Padding(
+            padding: EdgeInsets.only(left: 20, right: 10, top: 10),
             child: CustomTextField(
               color: AppColors.textField,
             ),
@@ -104,7 +104,7 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
                   fontSize: 14, color: AppColors.primaryColor),
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomBasicButton(

@@ -37,7 +37,7 @@ class CustomBasicButton extends StatelessWidget {
                 width: 15,
               ),
               image,
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Text(

@@ -1,4 +1,3 @@
-import 'package:aci_app/constants/button_constant.dart';
 import 'package:aci_app/constants/font_constant.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,10 +23,10 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
         ),
         backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             CupertinoIcons.back,
             color: Colors.white,
           ),
