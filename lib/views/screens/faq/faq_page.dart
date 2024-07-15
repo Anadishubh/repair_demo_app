@@ -20,7 +20,7 @@ class _FaqPageState extends State<FaqPage> {
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.06,
+          horizontal: MediaQuery.of(context).size.width * 0.055,
           vertical: MediaQuery.of(context).size.height * 0.09,
         ),
         child: Column(

@@ -26,7 +26,7 @@ class _SignupScreenState extends State<SignupScreen> {
           children: [
             Center(
               child: Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.1),
+                padding: EdgeInsets.only(top: screenHeight * 0.055),
                 child: ClipOval(
                   child: Container(
                     width: screenWidth * 0.4,

@@ -85,7 +85,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                         child: Container(
                           alignment: Alignment.center,
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.width * 0.5,
                           decoration: BoxDecoration(
                             color: _selectedIndex == index
                                 ? AppColors.lightColor
@@ -107,7 +107,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 15),
+                              const SizedBox(height: 5),
                               Text(
                                 options[index],
                                 textAlign: TextAlign.center,
@@ -119,6 +119,27 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                                       : Colors.black,
                                 ),
                               ),
+                              if (index == 1) ...[
+                                const SizedBox(height: 9,),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Get.offAndToNamed('/repair');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.primaryColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Yes',
+                                    style: FontConstant.styleBold(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),

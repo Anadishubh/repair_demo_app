@@ -56,7 +56,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(
-                top: screenHeight * 0.15,
+                top: screenHeight * 0.12,
                 left: screenWidth * 0.07,
                 right: screenWidth * 0.07,
                 bottom: screenHeight * 0.07),
@@ -79,7 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.6),
+            padding: EdgeInsets.only(top: screenHeight * 0.63),
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -92,7 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.01),
+                padding: EdgeInsets.only(top: screenHeight * 0.015),
                 child: CarouselSlider(
                   options: CarouselOptions(
                       height: screenHeight * 0.2,
@@ -118,7 +118,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.28),
+            padding: EdgeInsets.only(top: screenHeight * 0.27),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -144,7 +144,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                                vertical: screenHeight * 0.005),
+                                vertical: screenHeight * 0.003),
                             decoration: BoxDecoration(
                               color: AppColors.boxLight,
                               borderRadius:
@@ -204,27 +204,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Column(
                         children: [
                           Image.asset(
-                            Images.column,
-                            height: MediaQuery.of(context).size.width * 0.2,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                          Text('Column',
-                              style: FontConstant.styleRegular(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                  color: Colors.black))
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAndToNamed('/beam');
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset(
                             Images.beam,
                             height: MediaQuery.of(context).size.width * 0.2,
                           ),
@@ -237,7 +216,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.05,
                                 color: Colors.black),
-                          )
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('/beam');
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            Images.column,
+                            height: MediaQuery.of(context).size.width * 0.2,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          Text(
+                            'Column',
+                            style: FontConstant.styleRegular(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.05,
+                                color: Colors.black),
+                          ),
                         ],
                       ),
                     ),

@@ -177,59 +177,27 @@ class _BeamColumnState extends State<BeamColumn> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.offAndToNamed('/corrosion');
-                            },
-                            child: Container(
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: AppColors.lightColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Yes',
-                                  style: FontConstant.styleBold(
-                                      fontSize: 18,
-                                      color: AppColors.primaryColor),
-                                ),
-                              ),
-                            ),
+                    padding: const EdgeInsets.symmetric(horizontal: 90.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('/corrosion');
+                      },
+                      child: Container(
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: AppColors.lightColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Yes',
+                            style: FontConstant.styleBold(
+                                fontSize: 18,
+                                color: AppColors.primaryColor),
                           ),
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.offAndToNamed('/dash');
-                            },
-                            child: Container(
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: AppColors.lightColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'No',
-                                  style: FontConstant.styleBold(
-                                      fontSize: 18,
-                                      color: AppColors.primaryColor),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
