@@ -23,4 +23,6 @@ class Images{
   static const String exit = 'assets/images/exit.png';
   static const String faq = 'assets/images/faq.png';
   static const String home = 'assets/images/Home.png';
+  static const String hammer = 'assets/images/hammer.png';
+  static const String location = 'assets/images/location.png';
 }

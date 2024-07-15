@@ -24,17 +24,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.primaryColor,
         title: Text(
           'Dashboard',
           style: FontConstant.styleBold(fontSize: 18, color: Colors.white),
         ),
-        leading: IconButton(
-          icon: Image.asset(Images.menu),
-          onPressed: () {
-            // Get.offAndToNamed('/prof');
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Image.asset(Images.menu),
+        //   onPressed: () {
+        //     // Get.offAndToNamed('/prof');
+        //   },
+        // ),
       ),
       body: Stack(
         children: [
@@ -189,7 +190,7 @@ void _showBottomSheet(BuildContext context) {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/beam');
+                      Get.offAndToNamed('/beam');
                     },
                     child: Column(
                       children: [
@@ -208,7 +209,7 @@ void _showBottomSheet(BuildContext context) {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/beam');
+                      Get.offAndToNamed('/beam');
                     },
                     child: Column(
                       children: [

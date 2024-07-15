@@ -1,4 +1,3 @@
-import 'package:aci_app/constants/button_constant.dart';
 import 'package:aci_app/constants/font_constant.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:aci_app/utils/images.dart';
@@ -20,6 +19,10 @@ class _BeamColumnState extends State<BeamColumn> {
     Images.img3,
     Images.img4,
   ];
+
+  bool isYesSelected = false;
+  bool isYesTapped = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,7 @@ class _BeamColumnState extends State<BeamColumn> {
         ),
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.offAndToNamed('/dash');
           },
           child: const Icon(
             CupertinoIcons.back,
@@ -40,103 +43,192 @@ class _BeamColumnState extends State<BeamColumn> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 430,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-                color: AppColors.greyLight),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: Text(
-                    'Are you facing anything like these ?',
-                    style: FontConstant.styleBold(
-                        fontSize: 18, color: Colors.black),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 10,
-                              mainAxisExtent: 150),
-                      itemCount: imagePaths.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: AssetImage(imagePaths[index]),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 550,
+              width: double.infinity,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 15),
+                    child: Text(
+                      'Are you facing anything like these?',
+                      style: FontConstant.styleBold(
+                          fontSize: 18, color: Colors.black),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20.0),
-            child: Text(
-              'Do you want to know more about this?',
-              style: FontConstant.styleBold(
-                  fontSize: 14, color: AppColors.textColor),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
-            child: CustomButton(
-              text: 'Yes',
-              onPressed: () {
-                Get.toNamed('/corrosion');
-              },
-              color: AppColors.primaryColor,
-              textStyle:
-                  FontConstant.styleBold(fontSize: 18, color: Colors.white),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed('/faq');
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 24, top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    Images.help,
-                    height: 30,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisSpacing: 10,
+                            mainAxisExtent: 110),
+                        itemCount: imagePaths.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image: AssetImage(imagePaths[index]),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Frequently Asked Question ?',
-                    style: FontConstant.styleRegular(
-                        fontSize: 14, color: AppColors.primaryColor),
-                  )
                 ],
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isYesSelected = true;
+                          isYesTapped = true;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        decoration: BoxDecoration(
+                          color: AppColors.lightColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (isYesTapped)
+                              const Icon(
+                                Icons.check_circle,
+                                color: AppColors.primaryColor,
+                              ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Yes',
+                              style: FontConstant.styleBold(
+                                  fontSize: 18, color: AppColors.primaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isYesSelected = false;
+                          isYesTapped = false;
+                        });
+                        Get.offAndToNamed('/dash');
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        decoration: BoxDecoration(
+                          color: AppColors.lightColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'No',
+                            style: FontConstant.styleBold(
+                                fontSize: 18, color: AppColors.primaryColor),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (isYesSelected)
+              Column(
+                children: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Do you want to know more?',
+                        style: FontConstant.styleMedium(
+                            fontSize: 18, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(left: 30, right: 30, top: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.offAndToNamed('/corrosion');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              decoration: BoxDecoration(
+                                color: AppColors.lightColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Yes',
+                                  style: FontConstant.styleBold(
+                                      fontSize: 18, color: AppColors.primaryColor),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.offAndToNamed('/dash');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              decoration: BoxDecoration(
+                                color: AppColors.lightColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'No',
+                                  style: FontConstant.styleBold(
+                                      fontSize: 18, color: AppColors.primaryColor),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }

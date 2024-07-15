@@ -1,5 +1,6 @@
 import 'package:aci_app/utils/images.dart';
 import 'package:aci_app/views/screens/dashboard/dashboard_screen.dart';
+import 'package:aci_app/views/screens/faq/faq_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
@@ -37,9 +38,7 @@ class _BottomNavState extends State<BottomNav> {
           Center(
             child: Text('user'),
           ),
-          Center(
-            child: Text('liked'),
-          ),
+          FaqPage(),
           Center(
             child: Text('search'),
           ),
@@ -58,7 +57,7 @@ class _BottomNavState extends State<BottomNav> {
           BottomBarItem(
             icon: const Icon(Icons.info_outline),
             title: Text(
-              'Chat',
+              'Info',
               style: FontConstant.styleSemiBold(
                   fontSize: 12, color: AppColors.primaryColor),
             ),
@@ -67,7 +66,7 @@ class _BottomNavState extends State<BottomNav> {
           BottomBarItem(
             icon: const Icon(CupertinoIcons.chat_bubble_text),
             title: Text(
-              'Profile',
+              'Chat',
               style: FontConstant.styleSemiBold(
                   fontSize: 12, color: AppColors.primaryColor),
             ),
@@ -76,7 +75,7 @@ class _BottomNavState extends State<BottomNav> {
           BottomBarItem(
             icon: const Icon(Icons.search),
             title: Text(
-              'Liked',
+              'Faq',
               style: FontConstant.styleSemiBold(
                   fontSize: 12, color: AppColors.primaryColor),
             ),
@@ -85,7 +84,7 @@ class _BottomNavState extends State<BottomNav> {
           BottomBarItem(
             icon: const Icon(Icons.logout_sharp),
             title: Text(
-              'Search',
+              'Logout',
               style: FontConstant.styleSemiBold(
                   fontSize: 12, color: AppColors.primaryColor),
             ),

@@ -20,17 +20,23 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
     'Arrange a visit'
   ];
 
+  final List<String> imagePaths = [
+    'assets/images/chat.png',
+    'assets/images/hammer.png',
+    'assets/images/location.png'
+  ];
+
   void _onOptionTap(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
     if (index == 0) {
-      Get.toNamed('/visit');
+      Get.offAndToNamed('/visit');
     } else if (index == 1) {
-      Get.toNamed('/repair');
+      Get.offAndToNamed('/repair');
     } else if (index == 2) {
-      Get.toNamed('/visit');
+      Get.offAndToNamed('/visit');
     }
   }
 
@@ -46,7 +52,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
         ),
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.offAndToNamed('/beam');
           },
           child: const Icon(
             CupertinoIcons.back,
@@ -57,45 +63,70 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
       backgroundColor: AppColors.bottomBar,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            'Select option below:',
-            style: FontConstant.styleBold(fontSize: 18, color: Colors.black),
-          ),
-          const SizedBox(height: 20),
-          ...List.generate(options.length, (index) {
-            return Column(
-              children: [
-                GestureDetector(
-                  onTap: () => _onOptionTap(index),
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: _selectedIndex == index
-                          ? AppColors.lightColor
-                          : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      options[index],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: _selectedIndex == index
-                            ? AppColors.primaryColor
-                            : Colors.black,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Select option below:',
+              style: FontConstant.styleBold(fontSize: 18, color: Colors.black),
+            ),
+            const SizedBox(height: 20),
+            ...List.generate(
+              options.length,
+              (index) {
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => _onOptionTap(index),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 162,
+                        decoration: BoxDecoration(
+                          color: _selectedIndex == index
+                              ? AppColors.lightColor
+                              : Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: AssetImage(imagePaths[index]),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Text(
+                              options[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: _selectedIndex == index
+                                    ? AppColors.primaryColor
+                                    : Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-            );
-          }),
-        ]),
+                    const SizedBox(height: 20),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

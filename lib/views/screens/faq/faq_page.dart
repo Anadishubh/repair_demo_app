@@ -27,7 +27,7 @@ class _FaqPageState extends State<FaqPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.back();
+                    Get.offAndToNamed('/dash');
                   },
                   child: const Icon(
                     CupertinoIcons.back,

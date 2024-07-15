@@ -25,14 +25,16 @@ class _SignupScreenState extends State<SignupScreen> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 70),
-                child: Container(
-                  width: 150,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    borderRadius: BorderRadiusDirectional.circular(20),
-                    image: const DecorationImage(
-                        image: AssetImage(Images.logo), fit: BoxFit.contain),
+                child: ClipOval(
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadiusDirectional.circular(20),
+                      image: const DecorationImage(
+                          image: AssetImage(Images.logo), fit: BoxFit.contain),
+                    ),
                   ),
                 ),
               ),

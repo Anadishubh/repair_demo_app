@@ -24,7 +24,7 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
         backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.offAndToNamed('corrosion');
           },
           child: const Icon(
             CupertinoIcons.back,

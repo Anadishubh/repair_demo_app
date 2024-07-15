@@ -22,7 +22,7 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
         backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.offAndToNamed('corrosion');
           },
           child: const Icon(
             CupertinoIcons.back,
