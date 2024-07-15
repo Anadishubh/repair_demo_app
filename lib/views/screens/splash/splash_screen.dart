@@ -49,18 +49,18 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Center(
             child: Container(
-              width: screenWidth * 0.4, // 40% of the screen width
-              height: screenWidth * 0.4, // 40% of the screen width
+              width: screenWidth * 0.45,
+              height: screenWidth * 0.45,
               decoration: BoxDecoration(
                 color: AppColors.primaryColor,
-                borderRadius: BorderRadius.circular(screenWidth * 0.2), // Circular shape
+                borderRadius: BorderRadius.circular(screenWidth * 0.25),
               ),
             ),
           ),
           Center(
             child: Container(
-              width: screenWidth * 0.25, // 25% of the screen width
-              height: screenWidth * 0.25, // 25% of the screen width
+              width: screenWidth * 0.3,
+              height: screenWidth * 0.3,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(Images.logo),

@@ -56,13 +56,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(
-                top: screenHeight * 0.11,
+                top: screenHeight * 0.15,
                 left: screenWidth * 0.07,
                 right: screenWidth * 0.07,
                 bottom: screenHeight * 0.07),
             child: Center(
               child: Container(
-                height: screenHeight * 0.32,
+                height: screenHeight * 0.35,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth * 0.03),
@@ -79,16 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-                top: screenHeight * 0.57, left: screenWidth * 0.07),
-            child: Text(
-              'ENGINEERS IN YOUR \nAREA TODAY!',
-              style: FontConstant.styleBold(
-                  fontSize: screenWidth * 0.05, color: AppColors.primaryColor),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.63),
+            padding: EdgeInsets.only(top: screenHeight * 0.6),
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -101,7 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.02),
+                padding: EdgeInsets.only(top: screenHeight * 0.01),
                 child: CarouselSlider(
                   options: CarouselOptions(
                       height: screenHeight * 0.2,
@@ -127,7 +118,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.25),
+            padding: EdgeInsets.only(top: screenHeight * 0.28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

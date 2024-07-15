@@ -4,7 +4,6 @@ import 'package:aci_app/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constants/button_constant.dart';
 
 class FaqPage extends StatefulWidget {
@@ -39,7 +38,7 @@ class _FaqPageState extends State<FaqPage> {
                   ),
                 ),
                 const SizedBox(
-                  width: 20,
+                  width: 15,
                 ),
                 Image.asset(
                   Images.logo,
@@ -48,14 +47,11 @@ class _FaqPageState extends State<FaqPage> {
                 const SizedBox(
                   width: 15,
                 ),
-                Flexible(
-                  flex: 5,
-                  child: Text(
-                    'ADHAR CONSULTANCY \nAND INFRASTRUCTURE',
-                    style: FontConstant.styleBold(
-                      fontSize: 14,
-                      color: AppColors.primaryColor,
-                    ),
+                Text(
+                  'ADHAR CONSULTANCY\nAND INFRASTRUCTURE',
+                  style: FontConstant.styleBold(
+                    fontSize: 14,
+                    color: AppColors.primaryColor,
                   ),
                 ),
                 const Spacer(),

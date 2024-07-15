@@ -71,7 +71,7 @@ class _BeamColumnState extends State<BeamColumn> {
                           crossAxisCount: 1,
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
-                          mainAxisExtent: 110,
+                          mainAxisExtent: 100,
                         ),
                         itemCount: imagePaths.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -92,7 +92,7 @@ class _BeamColumnState extends State<BeamColumn> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
               child: Row(
                 children: [
                   Expanded(
