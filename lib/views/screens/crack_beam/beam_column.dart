@@ -112,7 +112,9 @@ class _BeamColumnState extends State<BeamColumn> {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed('/faq');
+            },
             child: Padding(
               padding: const EdgeInsets.only(left: 24, top: 10),
               child: Row(
