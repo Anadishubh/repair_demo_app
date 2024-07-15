@@ -81,12 +81,12 @@ class _FaqPageState extends State<FaqPage> {
             CustomShadowButton(
               text: 'Book Appointment',
               onPressed: () {
-                // Implement appointment booking logic
+                Get.offAndToNamed('/visit');
               },
               color: AppColors.primaryColor,
               textStyle: FontConstant.styleSemiBold(
                 fontSize: 18,
-                color: Colors.white,
+                color: Colors.white
               ),
             ),
           ],

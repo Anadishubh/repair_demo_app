@@ -113,7 +113,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/login');
+                    // Get.toNamed('/login');
                   },
                   child: Text(
                     ' Login',
