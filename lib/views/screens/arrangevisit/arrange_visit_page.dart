@@ -31,103 +31,116 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
         ),
       ),
       backgroundColor: AppColors.backgroundColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Container(
-              height: 50,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Images.logo),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.03,
+          vertical: MediaQuery.of(context).size.height * 0.02,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.16,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(Images.logo),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              '1. Since when are you suffering from these ?',
-              style: FontConstant.styleBold(
-                  fontSize: 14, color: AppColors.primaryColor),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                '1. Since when are you suffering from these?',
+                style: FontConstant.styleBold(
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20, right: 10, top: 10),
-            child: CustomTextField(
-              color: AppColors.textField,
+            const Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: CustomTextField(
+                color: AppColors.textField,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              '2. Have you tired to get rid of these ?',
-              style: FontConstant.styleBold(
-                  fontSize: 14, color: AppColors.primaryColor),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                '2. Have you tried to get rid of these?',
+                style: FontConstant.styleBold(
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20, right: 10, top: 10),
-            child: CustomTextField(
-              color: AppColors.textField,
+            const Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: CustomTextField(
+                color: AppColors.textField,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              '3. What do you think are probable reasons ?',
-              style: FontConstant.styleBold(
-                  fontSize: 14, color: AppColors.primaryColor),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Text(
+                '3. What do you think are probable reasons?',
+                style: FontConstant.styleBold(
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20, right: 10, top: 10),
-            child: CustomTextField(
-              color: AppColors.textField,
+            const Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: CustomTextField(
+                color: AppColors.textField,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, top: 20),
-            child: Text(
-              'Share details on Whatsapp or Mail',
-              style: FontConstant.styleBold(
-                  fontSize: 14, color: AppColors.primaryColor),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 20),
+              child: Text(
+                'Share details on WhatsApp or Mail',
+                style: FontConstant.styleBold(
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: CustomBasicButton(
-              text: 'Share on WhatsApp',
-              onPressed: () {},
-              color: AppColors.primaryColor,
-              textStyle:
-                  FontConstant.styleBold(fontSize: 14, color: Colors.white),
-              image: Image.asset(Images.whatsapp,height: 35,),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: CustomBasicButton(
+                text: 'Share on WhatsApp',
+                onPressed: () {},
+                color: AppColors.primaryColor,
+                textStyle: FontConstant.styleBold(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+                image: Image.asset(Images.whatsapp, height: 35),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal:20,vertical: 15),
-            child: CustomBasicButton(
-              text: 'Share on Mail',
-              onPressed: () {},
-              color: AppColors.primaryColor,
-              textStyle:
-              FontConstant.styleBold(fontSize: 14, color: Colors.white),
-              image: Image.asset(Images.email,height: 25,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              child: CustomBasicButton(
+                text: 'Share on Mail',
+                onPressed: () {},
+                color: AppColors.primaryColor,
+                textStyle: FontConstant.styleBold(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+                image: Image.asset(Images.email, height: 25),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

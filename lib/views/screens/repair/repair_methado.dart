@@ -33,8 +33,11 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
         ),
       ),
       backgroundColor: AppColors.backgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+          vertical: MediaQuery.of(context).size.height * 0.02,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,23 +46,29 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
               child: Text(
                 'Dummy heading a shear Crack in RCC ?',
                 style: FontConstant.styleSemiBold(
-                    fontSize: 14, color: AppColors.primaryColor),
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5, top: 10),
               child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the pathn along which the comprehensive force is transmitted from support.',
+                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
                 style: FontConstant.styleMedium(
-                    fontSize: 14, color: AppColors.primaryColor),
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5, top: 15),
               child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the pathn along which the comprehensive force is transmitted from support.',
+                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
                 style: FontConstant.styleMedium(
-                    fontSize: 14, color: AppColors.primaryColor),
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
             Padding(
@@ -67,23 +76,29 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
               child: Text(
                 'Dummy heading a shear Crack in RCC ?',
                 style: FontConstant.styleSemiBold(
-                    fontSize: 14, color: AppColors.primaryColor),
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5, top: 10),
               child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the pathn along which the comprehensive force is transmitted from support.',
+                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
                 style: FontConstant.styleMedium(
-                    fontSize: 14, color: AppColors.primaryColor),
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5, top: 15),
               child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the pathn along which the comprehensive force is transmitted from support.',
+                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
                 style: FontConstant.styleMedium(
-                    fontSize: 14, color: AppColors.primaryColor),
+                  fontSize: 14,
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
           ],

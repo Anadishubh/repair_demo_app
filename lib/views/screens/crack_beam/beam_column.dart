@@ -48,8 +48,7 @@ class _BeamColumnState extends State<BeamColumn> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 550,
-              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.64,
               child: Column(
                 children: [
                   Padding(
@@ -64,13 +63,16 @@ class _BeamColumnState extends State<BeamColumn> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: GridView.builder(
+                        shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisSpacing: 10,
-                            mainAxisExtent: 110),
+                          crossAxisCount: 1,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          mainAxisExtent: 110,
+                        ),
                         itemCount: imagePaths.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
@@ -90,7 +92,7 @@ class _BeamColumnState extends State<BeamColumn> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Row(
                 children: [
                   Expanded(
@@ -102,7 +104,7 @@ class _BeamColumnState extends State<BeamColumn> {
                         });
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
                           color: AppColors.lightColor,
                           borderRadius: BorderRadius.circular(10),
@@ -121,7 +123,8 @@ class _BeamColumnState extends State<BeamColumn> {
                             Text(
                               'Yes',
                               style: FontConstant.styleBold(
-                                  fontSize: 18, color: AppColors.primaryColor),
+                                  fontSize: 18,
+                                  color: AppColors.primaryColor),
                             ),
                           ],
                         ),
@@ -129,7 +132,7 @@ class _BeamColumnState extends State<BeamColumn> {
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 20,
                   ),
                   Expanded(
                     child: GestureDetector(
@@ -141,7 +144,7 @@ class _BeamColumnState extends State<BeamColumn> {
                         Get.offAndToNamed('/dash');
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
                           color: AppColors.lightColor,
                           borderRadius: BorderRadius.circular(10),
@@ -150,7 +153,8 @@ class _BeamColumnState extends State<BeamColumn> {
                           child: Text(
                             'No',
                             style: FontConstant.styleBold(
-                                fontSize: 18, color: AppColors.primaryColor),
+                                fontSize: 18,
+                                color: AppColors.primaryColor),
                           ),
                         ),
                       ),
@@ -161,20 +165,19 @@ class _BeamColumnState extends State<BeamColumn> {
             ),
             if (isYesSelected)
               Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        'Do you want to know more?',
-                        style: FontConstant.styleMedium(
-                            fontSize: 18, color: Colors.black),
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 20),
+                    child: Text(
+                      'Do you want to know more?',
+                      style: FontConstant.styleMedium(
+                          fontSize: 18, color: Colors.black),
                     ),
                   ),
                   Padding(
-                    padding:
-                    const EdgeInsets.only(left: 30, right: 30, top: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
                       children: [
                         Expanded(
@@ -183,7 +186,8 @@ class _BeamColumnState extends State<BeamColumn> {
                               Get.offAndToNamed('/corrosion');
                             },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: AppColors.lightColor,
                                 borderRadius: BorderRadius.circular(10),
@@ -192,14 +196,15 @@ class _BeamColumnState extends State<BeamColumn> {
                                 child: Text(
                                   'Yes',
                                   style: FontConstant.styleBold(
-                                      fontSize: 18, color: AppColors.primaryColor),
+                                      fontSize: 18,
+                                      color: AppColors.primaryColor),
                                 ),
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 20,
                         ),
                         Expanded(
                           child: GestureDetector(
@@ -207,7 +212,8 @@ class _BeamColumnState extends State<BeamColumn> {
                               Get.offAndToNamed('/dash');
                             },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: AppColors.lightColor,
                                 borderRadius: BorderRadius.circular(10),
@@ -216,7 +222,8 @@ class _BeamColumnState extends State<BeamColumn> {
                                 child: Text(
                                   'No',
                                   style: FontConstant.styleBold(
-                                      fontSize: 18, color: AppColors.primaryColor),
+                                      fontSize: 18,
+                                      color: AppColors.primaryColor),
                                 ),
                               ),
                             ),

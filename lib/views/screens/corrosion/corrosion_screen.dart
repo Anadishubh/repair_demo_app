@@ -62,7 +62,10 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
       ),
       backgroundColor: AppColors.bottomBar,
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+          vertical: MediaQuery.of(context).size.height * 0.02,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -71,59 +74,60 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
               style: FontConstant.styleBold(fontSize: 18, color: Colors.black),
             ),
             const SizedBox(height: 20),
-            ...List.generate(
-              options.length,
-              (index) {
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () => _onOptionTap(index),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        height: 162,
-                        decoration: BoxDecoration(
-                          color: _selectedIndex == index
-                              ? AppColors.lightColor
-                              : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage(imagePaths[index]),
-                                  fit: BoxFit.contain,
+            Expanded(
+              child: ListView.builder(
+                itemCount: options.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => _onOptionTap(index),
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                            color: _selectedIndex == index
+                                ? AppColors.lightColor
+                                : Colors.grey[200],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                height:
+                                    MediaQuery.of(context).size.width * 0.15,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: AssetImage(imagePaths[index]),
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 15),
-                            Text(
-                              options[index],
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: _selectedIndex == index
-                                    ? AppColors.primaryColor
-                                    : Colors.black,
+                              const SizedBox(height: 15),
+                              Text(
+                                options[index],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: _selectedIndex == index
+                                      ? AppColors.primaryColor
+                                      : Colors.black,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                );
-              },
+                      const SizedBox(height: 20),
+                    ],
+                  );
+                },
+              ),
             ),
           ],
         ),

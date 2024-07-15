@@ -25,6 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -32,32 +34,33 @@ class _SplashScreenState extends State<SplashScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(Images.rectangle),
-                fit: BoxFit.fill
+                fit: BoxFit.fill,
               ),
             ),
           ),
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(Images.triangle),
-                  opacity: 5,
-                  fit: BoxFit.fill
+                image: AssetImage(Images.triangle),
+                opacity: 5,
+                fit: BoxFit.fill,
               ),
             ),
           ),
           Center(
             child: Container(
-              width: 150,
-              height: 150,
+              width: screenWidth * 0.4, // 40% of the screen width
+              height: screenWidth * 0.4, // 40% of the screen width
               decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.circular(80)),
+                color: AppColors.primaryColor,
+                borderRadius: BorderRadius.circular(screenWidth * 0.2), // Circular shape
+              ),
             ),
           ),
           Center(
             child: Container(
-              width: 100,
-              height: 100,
+              width: screenWidth * 0.25, // 25% of the screen width
+              height: screenWidth * 0.25, // 25% of the screen width
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(Images.logo),

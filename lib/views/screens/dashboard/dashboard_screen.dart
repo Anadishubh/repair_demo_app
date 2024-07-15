@@ -20,15 +20,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
     'Looking for alternates',
     'Seismic Safety',
   ];
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.primaryColor,
         title: Text(
           'Dashboard',
-          style: FontConstant.styleBold(fontSize: 18, color: Colors.white),
+          style: FontConstant.styleBold(
+              fontSize: screenWidth * 0.045, color: Colors.white),
         ),
         // leading: IconButton(
         //   icon: Image.asset(Images.menu),
@@ -41,7 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           Container(
             width: double.infinity,
-            height: 400,
+            height: screenHeight * 0.4,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(Images.backImage),
@@ -50,14 +55,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(top: 0, left: 25, right: 25, bottom: 30),
+            padding: EdgeInsets.only(
+                top: screenHeight * 0.11,
+                left: screenWidth * 0.07,
+                right: screenWidth * 0.07,
+                bottom: screenHeight * 0.07),
             child: Center(
               child: Container(
-                height: 250,
+                height: screenHeight * 0.32,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.03),
                   gradient: const LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
@@ -71,15 +79,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 455, left: 25),
+            padding: EdgeInsets.only(
+                top: screenHeight * 0.57, left: screenWidth * 0.07),
             child: Text(
               'ENGINEERS IN YOUR \nAREA TODAY!',
               style: FontConstant.styleBold(
-                  fontSize: 20, color: AppColors.primaryColor),
+                  fontSize: screenWidth * 0.05, color: AppColors.primaryColor),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 500.0),
+            padding: EdgeInsets.only(top: screenHeight * 0.63),
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -92,16 +101,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(top: screenHeight * 0.02),
                 child: CarouselSlider(
                   options: CarouselOptions(
-                      height: 150.0, autoPlay: true, viewportFraction: 0.98),
+                      height: screenHeight * 0.2,
+                      autoPlay: true,
+                      viewportFraction: 0.98),
                   items: [Images.repair, Images.repair, Images.repair].map(
                     (imagePath) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.01),
                             decoration:
                                 const BoxDecoration(color: Colors.transparent),
                             child: Image.asset(imagePath, fit: BoxFit.fill),
@@ -115,48 +127,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 198.0),
+            padding: EdgeInsets.only(top: screenHeight * 0.25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 35.0),
+                  padding: EdgeInsets.only(left: screenWidth * 0.09),
                   child: Text(
                     'Repair Services',
                     style: FontConstant.styleBold(
-                        fontSize: 20, color: Colors.white),
+                        fontSize: screenWidth * 0.05, color: Colors.white),
                   ),
                 ),
                 Column(
                   children: items.map(
                     (item) {
                       return Padding(
-                        padding:
-                            const EdgeInsets.only(top: 8, left: 45, right: 45),
+                        padding: EdgeInsets.only(
+                            top: screenHeight * 0.009,
+                            left: screenWidth * 0.11,
+                            right: screenWidth * 0.11),
                         child: GestureDetector(
                           onTap: () {
                             _showBottomSheet(context);
                           },
                           child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: screenHeight * 0.005),
                             decoration: BoxDecoration(
                               color: AppColors.boxLight,
-                              borderRadius: BorderRadius.circular(5),
+                              borderRadius:
+                                  BorderRadius.circular(screenWidth * 0.02),
                             ),
                             child: Row(
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 20.0),
-                                  child: Icon(
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: screenWidth * 0.05),
+                                  child: const Icon(
                                     Icons.check_circle,
                                     color: AppColors.checkColor,
                                     size: 30,
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: screenWidth * 0.02),
                                 Text(
                                   item,
                                   style: FontConstant.styleMedium(
-                                      fontSize: 15, color: Colors.white),
+                                      fontSize: screenWidth * 0.04,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),
@@ -173,67 +192,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-}
 
-void _showBottomSheet(BuildContext context) {
-  showModalBottomSheet<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return SizedBox(
-        height: 200,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAndToNamed('/beam');
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          Images.column,
-                          height: 80,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text('Column',
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.3,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('/beam');
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            Images.column,
+                            height: MediaQuery.of(context).size.width * 0.2,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          Text('Column',
+                              style: FontConstant.styleRegular(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  color: Colors.black))
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAndToNamed('/beam');
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            Images.beam,
+                            height: MediaQuery.of(context).size.width * 0.2,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          Text(
+                            'Beam',
                             style: FontConstant.styleRegular(
-                                fontSize: 19, color: Colors.black))
-                      ],
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.05,
+                                color: Colors.black),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAndToNamed('/beam');
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          Images.beam,
-                          height: 80,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Beam',
-                          style: FontConstant.styleRegular(
-                              fontSize: 19, color: Colors.black),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }

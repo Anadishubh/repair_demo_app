@@ -4,7 +4,6 @@ import 'package:aci_app/constants/textfield_constant.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../utils/images.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -17,6 +16,9 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -24,109 +26,136 @@ class _SignupScreenState extends State<SignupScreen> {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 70),
+                padding: EdgeInsets.only(top: screenHeight * 0.1),
                 child: ClipOval(
                   child: Container(
-                    width: 150,
-                    height: 150,
+                    width: screenWidth * 0.4,
+                    height: screenWidth * 0.4,
                     decoration: BoxDecoration(
                       color: AppColors.primaryColor,
-                      borderRadius: BorderRadiusDirectional.circular(20),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.2),
                       image: const DecorationImage(
-                          image: AssetImage(Images.logo), fit: BoxFit.contain),
+                        image: AssetImage(Images.logo),
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 29,
+            SizedBox(
+              height: screenHeight * 0.03,
             ),
             Text(
-              'SIgnup',
+              'Signup',
               style: FontConstant.styleMedium(
-                  fontSize: 31, color: AppColors.primaryColor),
+                fontSize: screenWidth * 0.08,
+                color: AppColors.primaryColor,
+              ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenHeight * 0.03,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Column(
                 children: [
-                  CustomTextField(
-                    labelText: 'Your User ID',
+                  const CustomTextField(
+                    labelText: 'Name',
                     color: AppColors.primaryColor,
                   ),
                   SizedBox(
-                    height: 20,
+                    height: screenHeight * 0.03,
                   ),
-                  CustomTextField(
+                  const CustomTextField(
                     labelText: 'Your Email',
                     color: AppColors.primaryColor,
                   ),
                   SizedBox(
-                    height: 20,
+                    height: screenHeight * 0.03,
                   ),
-                  CustomTextField(
+                  const CustomTextField(
                     labelText: 'Password',
                     color: AppColors.primaryColor,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: screenHeight * 0.05,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: CustomButton(
-                text: 'SIgn Up',
+                text: 'Sign Up',
                 onPressed: () {
                   Get.offAndToNamed('/dash');
                 },
                 color: AppColors.primaryColor,
-                textStyle:
-                    FontConstant.styleRegular(fontSize: 22, color: Colors.white),
+                textStyle: FontConstant.styleRegular(
+                  fontSize: screenWidth * 0.06,
+                  color: Colors.white,
+                ),
               ),
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: screenHeight * 0.02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already a User ?',
+                  'Already a User?',
                   style: FontConstant.styleRegular(
-                      fontSize: 16, color: AppColors.primaryColor),
+                    fontSize: screenWidth * 0.045,
+                    color: AppColors.primaryColor,
+                  ),
                 ),
-                Text(
-                  ' Login',
-                  style: FontConstant.styleBold(
-                      fontSize: 18, color: AppColors.primaryColor),
-                )
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/login');
+                  },
+                  child: Text(
+                    ' Login',
+                    style: FontConstant.styleBold(
+                      fontSize: screenWidth * 0.05,
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
+                ),
               ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset(Images.google,height: 30,),
+                  icon: Image.asset(
+                    Images.google,
+                    height: screenWidth * 0.08,
+                  ),
                 ),
-                const SizedBox(width: 5,),
+                SizedBox(width: screenWidth * 0.02),
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset(Images.facebook,height:30,),
+                  icon: Image.asset(
+                    Images.facebook,
+                    height: screenWidth * 0.08,
+                  ),
                 ),
-                const SizedBox(width: 5,),
+                SizedBox(width: screenWidth * 0.02),
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset(Images.twitter,height: 30,),
+                  icon: Image.asset(
+                    Images.twitter,
+                    height: screenWidth * 0.08,
+                  ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
