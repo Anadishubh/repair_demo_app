@@ -85,7 +85,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                         child: Container(
                           alignment: Alignment.center,
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.width * 0.5,
+                          height: MediaQuery.of(context).size.width * 0.469,
                           decoration: BoxDecoration(
                             color: _selectedIndex == index
                                 ? AppColors.lightColor
@@ -93,6 +93,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const SizedBox(height: 10),
                               Container(
