@@ -15,7 +15,7 @@ class BeamColumn extends StatefulWidget {
 
 class _BeamColumnState extends State<BeamColumn> {
   final List<String> imagePaths = [
-    Images.img1, // Replace with your actual image paths
+    Images.img1,
     Images.img2,
     Images.img3,
     Images.img4,
