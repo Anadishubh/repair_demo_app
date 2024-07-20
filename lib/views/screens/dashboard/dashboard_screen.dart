@@ -1,9 +1,17 @@
+import 'dart:convert';
+import 'package:aci_app/constants/app_constant.dart';
 import 'package:aci_app/constants/font_constant.dart';
+import 'package:aci_app/controller/auth_controller.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:aci_app/utils/images.dart';
+import 'package:aci_app/views/screens/dashboard/dashboard_2.dart';
+import 'package:aci_app/views/screens/signup/signup_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import '../../../utils/models/dashboard.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -13,13 +21,15 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final List<String> items = [
-    'Crack Awareness',
-    'Building Plaques',
-    'Emergency Situations',
-    'Looking for alternates',
-    'Seismic Safety',
-  ];
+  List<String> banners = [];
+  List<CategoryElement> categories = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,229 +37,260 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.primaryColor,
-        title: Text(
-          'Dashboard',
-          style: FontConstant.styleBold(
-              fontSize: screenWidth * 0.045, color: Colors.white),
-        ),
-        // leading: IconButton(
-        //   icon: Image.asset(Images.menu),
-        //   onPressed: () {
-        //     // Get.offAndToNamed('/prof');
-        //   },
-        // ),
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(screenWidth),
+      body: isLoading
+          ? _buildLoadingIndicator()
+          : _buildDashboard(screenWidth, screenHeight),
+    );
+  }
+
+  AppBar _buildAppBar(double screenWidth) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: AppColors.primaryColor,
+      title: Text(
+        'Dashboard',
+        style: FontConstant.styleBold(
+            fontSize: screenWidth * 0.045, color: Colors.white),
       ),
-      body: Stack(
+    );
+  }
+
+  Widget _buildLoadingIndicator() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildDashboard(double screenWidth, double screenHeight) {
+    return Stack(
+      children: [
+        _buildBackgroundImage(screenHeight),
+        _buildGradientContainer(screenWidth, screenHeight),
+        _buildLogoContainer(screenHeight),
+        _buildCarousel(screenWidth, screenHeight),
+        _buildCategories(screenWidth, screenHeight),
+      ],
+    );
+  }
+
+  Widget _buildBackgroundImage(double screenHeight) {
+    return Container(
+      width: double.infinity,
+      height: screenHeight * 0.4,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Images.backImage),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGradientContainer(double screenWidth, double screenHeight) {
+    return Padding(
+      padding: EdgeInsets.only(
+          top: screenHeight * 0.12,
+          left: screenWidth * 0.05,
+          right: screenWidth * 0.05,
+          bottom: screenHeight * 0.07),
+      child: Center(
+        child: Container(
+          height: screenHeight * 0.35,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(screenWidth * 0.03),
+            gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                AppColors.boxGrad2,
+                AppColors.boxGrad1,
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoContainer(double screenHeight) {
+    return Padding(
+      padding: EdgeInsets.only(top: screenHeight * 0.62),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage('https://aci.aks.5g.in/${banners[4]}'),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCarousel(double screenWidth, double screenHeight) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: screenHeight * 0.015,
+              left: screenWidth * 0.03,
+              right: screenWidth * 0.03),
+          child: CarouselSlider(
+            options: CarouselOptions(
+                height: screenHeight * 0.2,
+                autoPlay: true,
+                viewportFraction: 0.98),
+            items: banners.map((imageUrl) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
+                    decoration: const BoxDecoration(color: Colors.transparent),
+                    child: Image.network('https://aci.aks.5g.in/$imageUrl',
+                        fit: BoxFit.fill),
+                  );
+                },
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategories(double screenWidth, double screenHeight) {
+    return Padding(
+      padding: EdgeInsets.only(top: screenHeight * 0.25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            height: screenHeight * 0.4,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Images.backImage),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
           Padding(
-            padding: EdgeInsets.only(
-                top: screenHeight * 0.12,
-                left: screenWidth * 0.07,
-                right: screenWidth * 0.07,
-                bottom: screenHeight * 0.07),
-            child: Center(
-              child: Container(
-                height: screenHeight * 0.35,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(screenWidth * 0.03),
-                  gradient: const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      AppColors.boxGrad2,
-                      AppColors.boxGrad1,
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.63),
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Images.workLogo),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            padding: EdgeInsets.only(left: screenWidth * 0.09),
+            child: Text(
+              'Repair Services',
+              style: FontConstant.styleBold(
+                  fontSize: screenWidth * 0.05, color: Colors.white),
             ),
           ),
           Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: screenHeight * 0.015),
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                      height: screenHeight * 0.2,
-                      autoPlay: true,
-                      viewportFraction: 0.98),
-                  items: [Images.repair, Images.repair, Images.repair].map(
-                    (imagePath) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.01),
-                            decoration:
-                                const BoxDecoration(color: Colors.transparent),
-                            child: Image.asset(imagePath, fit: BoxFit.fill),
-                          );
-                        },
-                      );
-                    },
-                  ).toList(),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.27),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.09),
-                  child: Text(
-                    'Repair Services',
-                    style: FontConstant.styleBold(
-                        fontSize: screenWidth * 0.05, color: Colors.white),
-                  ),
-                ),
-                Column(
-                  children: items.map(
-                    (item) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            top: screenHeight * 0.009,
-                            left: screenWidth * 0.11,
-                            right: screenWidth * 0.11),
-                        child: GestureDetector(
-                          onTap: () {
-                            _showBottomSheet(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: screenHeight * 0.003),
-                            decoration: BoxDecoration(
-                              color: AppColors.boxLight,
-                              borderRadius:
-                                  BorderRadius.circular(screenWidth * 0.02),
+            children: categories.map(
+              (item) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      top: screenHeight * 0.01,
+                      left: screenWidth * 0.1,
+                      right: screenWidth * 0.1),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.find<AuthController>()
+                          .fetchSubCategories(categoryid: item.id);
+
+                      final remainingItems = categories
+                          .where((category) => category.id != item.id)
+                          .map(
+                            (category) => CategoryElement(
+                              id: category.id,
+                              name: category.name,
                             ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: screenWidth * 0.05),
-                                  child: const Icon(
-                                    Icons.check_circle,
-                                    color: AppColors.checkColor,
-                                    size: 30,
-                                  ),
-                                ),
-                                SizedBox(width: screenWidth * 0.02),
-                                Text(
-                                  item,
-                                  style: FontConstant.styleMedium(
-                                      fontSize: screenWidth * 0.04,
-                                      color: Colors.white),
-                                ),
-                              ],
+                          )
+                          .toList();
+
+                      Get.to(
+                          Dashboard2(
+                            remainingItems: remainingItems,
+                          ),
+                          duration: const Duration(
+                              milliseconds: AppConstants.screenTransitionTime),
+                          transition: Transition.rightToLeft);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: screenHeight * 0.003),
+                      decoration: BoxDecoration(
+                        color: AppColors.boxLight,
+                        borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: screenWidth * 0.05),
+                            child: const Icon(
+                              Icons.check_circle,
+                              color: AppColors.checkColor,
+                              size: 30,
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ).toList(),
-                ),
-              ],
-            ),
-          )
+                          SizedBox(width: screenWidth * 0.02),
+                          Text(
+                            item.name,
+                            style: FontConstant.styleMedium(
+                                fontSize: screenWidth * 0.04,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ).toList(),
+          ),
         ],
       ),
     );
   }
 
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAndToNamed('/beam');
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            Images.beam,
-                            height: MediaQuery.of(context).size.width * 0.2,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                          Text(
-                            'Beam',
-                            style: FontConstant.styleRegular(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.05,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAndToNamed('/beam');
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            Images.column,
-                            height: MediaQuery.of(context).size.width * 0.2,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                          Text(
-                            'Column',
-                            style: FontConstant.styleRegular(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.05,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
+  Future<void> fetchData() async {
+    final url = Uri.parse('https://aci.aks.5g.in/api/dashboard');
+    final token = TokenStorage.token;
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        final dashboardResponse = DashboardResponse.fromJson(jsonResponse);
+        setState(
+          () {
+            banners = [
+              dashboardResponse.data.banner.topBanner1,
+              dashboardResponse.data.banner.topBanner2,
+              dashboardResponse.data.banner.topBanner3,
+              dashboardResponse.data.banner.topBanner4,
+              dashboardResponse.data.banner.bottom1,
+            ];
+            categories = dashboardResponse.data.category;
+            isLoading = false;
+          },
         );
-      },
-    );
+      } else {
+        if (kDebugMode) {
+          print('Failed to load data: ${response.statusCode}');
+        }
+        setState(
+          () {
+            isLoading = false;
+          },
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching data: $e');
+      }
+      setState(
+        () {
+          isLoading = false;
+        },
+      );
+    }
   }
 }

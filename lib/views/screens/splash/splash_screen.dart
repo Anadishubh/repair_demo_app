@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:aci_app/controller/auth_controller.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:aci_app/utils/images.dart';
+import 'package:aci_app/views/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,10 +17,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _loadTokenAndNavigate();
+  }
+
+  Future<void> _loadTokenAndNavigate() async {
+    await TokenStorage.loadToken();
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
           () {
-        Get.offAndToNamed('/signup');
+        if (Get.find<AuthController>().getAuthToken()!= null) {
+          Get.offAndToNamed('/dash');
+        } else {
+          Get.offAndToNamed('/signup');
+        }
       },
     );
   }

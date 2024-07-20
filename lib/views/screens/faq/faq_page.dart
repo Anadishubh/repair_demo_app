@@ -4,7 +4,9 @@ import 'package:aci_app/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import '../../../constants/button_constant.dart';
+import '../../../controller/auth_controller.dart';
 
 class FaqPage extends StatefulWidget {
   const FaqPage({super.key});
@@ -14,6 +16,10 @@ class FaqPage extends StatefulWidget {
 }
 
 class _FaqPageState extends State<FaqPage> {
+  bool isLoading = true;
+  bool isYesTapped = false;
+  final AuthController _authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +36,7 @@ class _FaqPageState extends State<FaqPage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.offAndToNamed('/dash');
+                    Get.back();
                   },
                   child: const Icon(
                     CupertinoIcons.back,
@@ -69,14 +75,7 @@ class _FaqPageState extends State<FaqPage> {
             const SizedBox(
               height: 30,
             ),
-            _buildFAQ('Q. What is a shear Crack in RCC ?',
-                'A. It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.'),
-            const SizedBox(height: 15),
-            _buildFAQ('Q. What is a shear Crack in RCC ?',
-                'A. It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.'),
-            const SizedBox(height: 15),
-            _buildFAQ('Q. What is a shear Crack in RCC ?',
-                'A. It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.'),
+            HtmlWidget(_authController.subCategories[0].faq),
             const SizedBox(height: 30),
             CustomShadowButton(
               text: 'Book Appointment',
@@ -84,37 +83,12 @@ class _FaqPageState extends State<FaqPage> {
                 Get.offAndToNamed('/visit');
               },
               color: AppColors.primaryColor,
-              textStyle: FontConstant.styleSemiBold(
-                fontSize: 18,
-                color: Colors.white
-              ),
+              textStyle:
+                  FontConstant.styleSemiBold(fontSize: 18, color: Colors.white),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildFAQ(String question, String answer) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          question,
-          style: FontConstant.styleSemiBold(
-            fontSize: 14,
-            color: AppColors.primaryColor,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          answer,
-          style: FontConstant.styleMedium(
-            fontSize: 14,
-            color: AppColors.primaryColor,
-          ),
-        ),
-      ],
     );
   }
 }

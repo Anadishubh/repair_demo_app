@@ -46,7 +46,7 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
               child: Text(
                 'Dummy heading a shear Crack in RCC ?',
                 style: FontConstant.styleSemiBold(
-                  fontSize: 15,
+                  fontSize: 16,
                   color: AppColors.primaryColor,
                 ),
               ),
@@ -76,7 +76,7 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
               child: Text(
                 'Dummy heading a shear Crack in RCC ?',
                 style: FontConstant.styleSemiBold(
-                  fontSize: 15,
+                  fontSize: 16,
                   color: AppColors.primaryColor,
                 ),
               ),

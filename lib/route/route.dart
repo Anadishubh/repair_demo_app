@@ -1,14 +1,11 @@
 import 'package:aci_app/views/screens/arrangevisit/arrange_visit_page.dart';
 import 'package:aci_app/views/screens/bottom/bottom_nav.dart';
 import 'package:aci_app/views/screens/corrosion/corrosion_screen.dart';
-import 'package:aci_app/views/screens/crack_beam/beam_column.dart';
-import 'package:aci_app/views/screens/faq/faq_page.dart';
 import 'package:aci_app/views/screens/repair/repair_methado.dart';
 import 'package:aci_app/views/screens/signup/signup_screen.dart';
 import 'package:get/get.dart';
 
 import '../views/screens/splash/splash_screen.dart';
-
 
 class AppRoutes {
   static const String splash = '/';
@@ -19,20 +16,7 @@ class AppRoutes {
   static const String repair = '/repair';
   static const String visit = '/visit';
   static const String faq = '/faq';
-  // static const String search = '/search';
-  // static const String profileDtls = '/profiledtls';
-  // static const String occupation = '/occupation';
-  // static const String photo = '/photo';
-  // static const String profileComplete = '/pc';
-  // static const String dashboard = '/dashboard';
-  // static const String searchResult = '/searchResult';
-  // static const String contact = '/contact';
-  // static const String professional = '/prof';
-  // static const String devotion = '/devotion';
-  // static const String location = '/location';
-  // static const String spirit = '/spirit';
-  // static const String horoscope = '/horo';
-
+  static const String deshboard2 = '/deshboard2';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -53,12 +37,12 @@ class AppRoutes {
       transition: Transition.fadeIn,
       // transitionDuration: const Duration(milliseconds: 400),
     ),
-    GetPage(
-      name: beam,
-      page: () => const BeamColumn(),
-      transition: Transition.fadeIn,
-      // transitionDuration: const Duration(milliseconds: 400),
-    ),
+    // GetPage(
+    //   name: beam,
+    //   page: () => const BeamColumn(selectionType: ''),
+    //   transition: Transition.fadeIn,
+    //   // transitionDuration: const Duration(milliseconds: 400),
+    // ),
     GetPage(
       name: corrosion,
       page: () => const CorrosionScreen(),
@@ -77,87 +61,15 @@ class AppRoutes {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
-    GetPage(
-      name: faq,
-      page: () => const FaqPage(),
-      transition: Transition.fadeIn,
-      transitionDuration: const Duration(milliseconds: 400),
-    ),
     // GetPage(
-    //   name: search,
-    //   page: () => const SearchPage(),
+    //   name: faq,
+    //   page: () => const FaqPage(),
     //   transition: Transition.fadeIn,
     //   transitionDuration: const Duration(milliseconds: 400),
     // ),
     // GetPage(
-    //   name: profileDtls,
-    //   page: () => const ProfileDetailsScreen(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: occupation,
-    //   page: () => const Occupation(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: photo,
-    //   page: () => const PhotoUpload(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: profileComplete,
-    //   page: () => const ProfileComplete(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: dashboard,
-    //   page: () => const Dashboard(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: searchResult,
-    //   page: () => const SearchResult(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: contact,
-    //   page: () => const ContactPage(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: professional,
-    //   page: () => const ProfessionalDetailsPage(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: devotion,
-    //   page: () => const DevotionDetails(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: location,
-    //   page: () => const Location(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: spirit,
-    //   page: () => const SpiritualDetails(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: horoscope,
-    //   page: () => const HoroscopeDetails(),
+    //   name: deshboard2,
+    //   page: () =>  Deshbaord2(),
     //   transition: Transition.fadeIn,
     //   transitionDuration: const Duration(milliseconds: 400),
     // ),

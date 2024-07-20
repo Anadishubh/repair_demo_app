@@ -38,10 +38,8 @@ class _BottomNavState extends State<BottomNav> {
           Center(
             child: Text('user'),
           ),
+          // FaqPage(),
           FaqPage(),
-          Center(
-            child: Text('search'),
-          ),
           DashboardScreen(),
         ],
       ),
@@ -82,9 +80,9 @@ class _BottomNavState extends State<BottomNav> {
             backgroundColor: AppColors.primaryColor,
           ),
           BottomBarItem(
-            icon: const Icon(Icons.logout_sharp),
+            icon: const Icon(Icons.share),
             title: Text(
-              'Logout',
+              'Share',
               style: FontConstant.styleSemiBold(
                   fontSize: 12, color: AppColors.primaryColor),
             ),

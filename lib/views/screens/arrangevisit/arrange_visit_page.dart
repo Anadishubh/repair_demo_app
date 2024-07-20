@@ -1,11 +1,12 @@
-import 'package:aci_app/constants/button_constant.dart';
-import 'package:aci_app/constants/font_constant.dart';
-import 'package:aci_app/constants/textfield_constant.dart';
-import 'package:aci_app/utils/color.dart';
-import 'package:aci_app/utils/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:whatsapp_share/whatsapp_share.dart';
+import '../../../constants/button_constant.dart';
+import '../../../constants/font_constant.dart';
+import '../../../constants/textfield_constant.dart';
+import '../../../utils/color.dart';
+import '../../../utils/images.dart';
 
 class ArrangeVisitPage extends StatefulWidget {
   const ArrangeVisitPage({super.key});
@@ -15,6 +16,30 @@ class ArrangeVisitPage extends StatefulWidget {
 }
 
 class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
+  List<String> questions = [
+    'Since when are you suffering from these?',
+    'Have you tried to get rid of these?',
+    'What do you think are probable reasons?',
+  ];
+
+  List<String> answers = ['', '', '']; // Initialize answers with empty strings
+
+  void shareViaWhatsApp() async {
+    // Construct the message to share on WhatsApp
+    String message = '';
+    for (int i = 0; i < questions.length; i++) {
+      message += '${i + 1}. ${questions[i]}\n';
+      message += 'Answer: ${answers[i]}\n\n';
+    }
+
+    // Share via WhatsApp
+    await WhatsappShare.share(
+      text: message,
+      linkUrl: '',
+      phone: '8787787878',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +47,7 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
         backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
           onTap: () {
-            Get.offAndToNamed('corrosion');
+            Get.back();
           },
           child: const Icon(
             CupertinoIcons.back,
@@ -32,111 +57,87 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
       ),
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.03,
-          vertical: MediaQuery.of(context).size.height * 0.02,
-        ),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 0),
               child: Container(
-                height: MediaQuery.of(context).size.width * 0.16,
+                height: 50,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(Images.logo),
-                    fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 20,
+            ),
+            for (int i = 0; i < questions.length; i++)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0, right: 0, top: 10),
+                    child: Text(
+                      '${i + 1}. ${questions[i]}',
+                      style: FontConstant.styleBold(
+                          fontSize: 14, color: AppColors.primaryColor),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0, right: 0, top: 10),
+                    child: CustomTextField(
+                      onChanged: (value) {
+                        setState(() {
+                          answers[i] = value;
+                        });
+                      },
+                      color: AppColors.textField,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0),
+              padding: const EdgeInsets.only(left: 0, top: 0),
               child: Text(
-                '1. Since when are you suffering from these?',
+                'Share details on Whatsapp or Mail',
                 style: FontConstant.styleBold(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
+                    fontSize: 14, color: AppColors.primaryColor),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: CustomTextField(
-                color: AppColors.textField,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Text(
-                '2. Have you tried to get rid of these?',
-                style: FontConstant.styleBold(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: CustomTextField(
-                color: AppColors.textField,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Text(
-                '3. What do you think are probable reasons?',
-                style: FontConstant.styleBold(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: CustomTextField(
-                color: AppColors.textField,
-              ),
+            const SizedBox(
+              height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 20),
-              child: Text(
-                'Share details on WhatsApp or Mail',
-                style: FontConstant.styleBold(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 0.0),
               child: CustomBasicButton(
                 text: 'Share on WhatsApp',
-                onPressed: () {},
+                onPressed: shareViaWhatsApp,
                 color: AppColors.primaryColor,
-                textStyle: FontConstant.styleBold(
-                  fontSize: 14,
-                  color: Colors.white,
+                textStyle:
+                    FontConstant.styleBold(fontSize: 14, color: Colors.white),
+                image: Image.asset(
+                  Images.whatsapp,
+                  height: 35,
                 ),
-                image: Image.asset(Images.whatsapp, height: 35),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
               child: CustomBasicButton(
                 text: 'Share on Mail',
                 onPressed: () {},
                 color: AppColors.primaryColor,
-                textStyle: FontConstant.styleBold(
-                  fontSize: 14,
-                  color: Colors.white,
+                textStyle:
+                    FontConstant.styleBold(fontSize: 14, color: Colors.white),
+                image: Image.asset(
+                  Images.email,
+                  height: 25,
                 ),
-                image: Image.asset(Images.email, height: 25),
               ),
             ),
           ],
