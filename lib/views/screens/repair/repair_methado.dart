@@ -2,7 +2,9 @@ import 'package:aci_app/constants/font_constant.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import '../../../controller/auth_controller.dart';
 
 class RepairMethodologyPage extends StatefulWidget {
   const RepairMethodologyPage({super.key});
@@ -12,6 +14,22 @@ class RepairMethodologyPage extends StatefulWidget {
 }
 
 class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
+  final AuthController _authController = Get.find<AuthController>();
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDataWithDelay();
+  }
+
+  Future<void> _fetchDataWithDelay() async {
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +42,8 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
         backgroundColor: AppColors.primaryColor,
         leading: GestureDetector(
           onTap: () {
-            Get.offAndToNamed('corrosion');
+            Navigator.pop(context);
+
           },
           child: const Icon(
             CupertinoIcons.back,
@@ -33,77 +52,40 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
         ),
       ),
       backgroundColor: AppColors.backgroundColor,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.05,
-          vertical: MediaQuery.of(context).size.height * 0.02,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Text(
-                'Dummy heading a shear Crack in RCC ?',
-                style: FontConstant.styleSemiBold(
-                  fontSize: 16,
-                  color: AppColors.primaryColor,
-                ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+                vertical: MediaQuery.of(context).size.height * 0.02,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (int i = 0; i < _authController.information.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: HtmlWidget(
+                        _authController.information[i],
+                        textStyle: FontConstant.styleRegular(
+                          fontSize: 16,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Image.network(
+                      'https://aci.aks.5g.in/${_authController.image.first}',
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, top: 10),
-              child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
-                style: FontConstant.styleMedium(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, top: 15),
-              child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
-                style: FontConstant.styleMedium(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, top: 20),
-              child: Text(
-                'Dummy heading a shear Crack in RCC ?',
-                style: FontConstant.styleSemiBold(
-                  fontSize: 16,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, top: 10),
-              child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
-                style: FontConstant.styleMedium(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, top: 15),
-              child: Text(
-                'It is postulated that various modes of diagonal failure exhibited multiaxial stress conditions load that exits in the path along which the comprehensive force is transmitted from support.',
-                style: FontConstant.styleMedium(
-                  fontSize: 14,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

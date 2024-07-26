@@ -25,4 +25,6 @@ class Images{
   static const String home = 'assets/images/Home.png';
   static const String hammer = 'assets/images/hammer.png';
   static const String location = 'assets/images/location.png';
+  static const String send = 'assets/images/send.png';
+  static const String whatsapp2 = 'assets/images/whatsapp2.png';
 }

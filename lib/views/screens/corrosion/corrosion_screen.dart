@@ -1,26 +1,22 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 import 'package:aci_app/constants/font_constant.dart';
+import 'package:aci_app/controller/auth_controller.dart';
 import 'package:aci_app/utils/color.dart';
+import 'package:aci_app/views/screens/arrangevisit/arrange_visit_page.dart';
+import 'package:aci_app/views/screens/arrangevisit/form_page.dart';
+import 'package:aci_app/views/screens/repair/repair_methado.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../constants/app_constant.dart';
 import '../../../utils/models/questions.dart';
 
-class TokenStorage {
-  static String? token;
-
-  static Future<void> loadToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token');
-  }
-}
-
 class CorrosionScreen extends StatefulWidget {
-  const CorrosionScreen({super.key});
+  final int? categoryId;
+  final int? subcategoryId;
+
+  const CorrosionScreen({super.key, this.categoryId, this.subcategoryId});
 
   @override
   State<CorrosionScreen> createState() => _CorrosionScreenState();
@@ -34,57 +30,63 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
   @override
   void initState() {
     super.initState();
-    TokenStorage.loadToken().then((_) {
-      fetchQuestions();
-    });
-  }
-
-  void _onOptionTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Get.offAndToNamed('/visit');
-    } else if (index == 1) {
-      Get.offAndToNamed('/repair');
-    } else if (index == 2) {
-      Get.offAndToNamed('/visit');
-    }
+    fetchQuestions();
   }
 
   Future<void> fetchQuestions() async {
-    final url = Uri.parse('https://aci.aks.5g.in/api/questionnaires');
-    final token = TokenStorage.token;
+    final url = Uri.parse('${AppConstants.baseUrl}${AppConstants.questions}');
+    final token = Get.find<AuthController>().getAuthToken();
 
     try {
+      setState(() {
+        isLoading = true;
+        questions = [];
+      });
+
       final response = await http.post(
         url,
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
+        body: jsonEncode({
+          "category_id": widget.categoryId,
+          "sub_category_id": widget.subcategoryId,
+        }),
       );
+
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        final questionsResponse = (jsonResponse['data'] as List)
-            .map((data) => Datum.fromJson(data))
-            .toList();
+        if (jsonResponse['data'] != null && jsonResponse['data'] is List) {
+          final questionsResponse = (jsonResponse['data'] as List)
+              .map((data) => Datum.fromJson(data))
+              .toList();
+          setState(() {
+            questions = questionsResponse;
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            isLoading = false;
+          });
+          print('No question data available');
+        }
+      } else if (response.statusCode == 401) {
+        print('Unauthorized: ${response.body}');
         setState(() {
-          questions = questionsResponse;
-          isLoading = false; // Set isLoading to false when data is fetched
+          isLoading = false;
         });
       } else {
-        print('Failed to load data: ${response.statusCode}');
         setState(() {
-          isLoading = false; // Set isLoading to false in case of failure
+          isLoading = false;
         });
+        print('Failed to load data: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching data: $e');
       setState(() {
-        isLoading = false; // Set isLoading to false in case of error
+        isLoading = false;
       });
+      print('Error fetching data: $e');
     }
   }
 
@@ -100,7 +102,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
         ),
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.offAndToNamed('/dash');
           },
           child: const Icon(
             CupertinoIcons.back,
@@ -134,7 +136,54 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                         return Column(
                           children: [
                             GestureDetector(
-                              onTap: () => _onOptionTap(index),
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = index;
+                                });
+
+                                final selectedQuestion = questions[index];
+                                final authController =
+                                    Get.find<AuthController>();
+
+                                if (index == 0) {
+                                  authController.getquestionlistt(
+                                    categoryId: widget.categoryId,
+                                    subcategoryId: widget.subcategoryId,
+                                    questionId1: selectedQuestion.id,
+                                  );
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => ArrangeVisitPage(),
+                                    ),
+                                  );
+                                  // Get.toNamed('/visit');
+                                } else if (index == 1) {
+                                  authController.informationList(
+                                    categoryId: widget.categoryId,
+                                    subcategoryId: widget.subcategoryId,
+                                    questionId2: selectedQuestion.id,
+                                  );
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RepairMethodologyPage(),
+                                    ),
+                                  );
+                                  //  Get.toNamed('/repair');
+                                } else if (index == 2) {
+                                  authController.formList(
+                                    categoryId: widget.categoryId,
+                                    subcategoryId: widget.subcategoryId,
+                                    questionId3: selectedQuestion.id,
+                                  );
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const FormPage(),
+                                    ),
+                                  );
+                                  // Get.toNamed('/form');
+                                }
+                              },
                               child: Container(
                                 alignment: Alignment.center,
                                 width: double.infinity,
@@ -154,8 +203,8 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                                       width: MediaQuery.of(context).size.width *
                                           0.15,
                                       height:
-                                          MediaQuery.of(context).size.width *
-                                              0.15,
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         image: DecorationImage(
@@ -170,7 +219,7 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 5),
+                                    const SizedBox(height: 10),
                                     Text(
                                       questions[index].questionType,
                                       textAlign: TextAlign.center,
@@ -182,33 +231,11 @@ class _CorrosionScreenState extends State<CorrosionScreen> {
                                             : Colors.black,
                                       ),
                                     ),
-                                    if (index == 1) ...[
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Get.offAndToNamed('/repair');
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              AppColors.primaryColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          'Yes',
-                                          style: FontConstant.styleBold(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
                                   ],
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 15),
                           ],
                         );
                       },

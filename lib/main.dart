@@ -16,10 +16,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      //   useMaterial3: true,
-      // ),
       home: const SplashScreen(),
       initialRoute: AppRoutes.splash,
       getPages: AppRoutes.routes,
@@ -27,9 +23,6 @@ class MyApp extends StatelessWidget {
   }
 }
 // import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
 
 // void main() {
 //   runApp(MyApp());
@@ -38,164 +31,226 @@ class MyApp extends StatelessWidget {
 // class MyApp extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       home: SubCategoryPage(),
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: SplashScreen(),
 //     );
 //   }
 // }
 
-// class SubCategory {
-//   final int id;
-//   final int categoryId;
-//   final String name;
-//   final List<String> images;
-//   final List<String> beamImages;
-//   final String faq;
-//   final bool columnAndBeam;
-
-//   SubCategory({
-//     required this.id,
-//     required this.categoryId,
-//     required this.name,
-//     required this.images,
-//     required this.beamImages,
-//     required this.faq,
-//     required this.columnAndBeam,
-//   });
-
-//   factory SubCategory.fromJson(Map<String, dynamic> json) {
-//     return SubCategory(
-//       id: json['id'],
-//       categoryId: json['category_id'],
-//       name: json['name'],
-//       images: [
-//         json['image_1'],
-//         json['image_2'],
-//         json['image_3'],
-//         json['image_4']
-//       ].whereType<String>().toList(),
-//       beamImages: [
-//         json['image_beam_1'],
-//         json['image_beam_2'],
-//         json['image_beam_3'],
-//         json['image_beam_4']
-//       ].whereType<String>().toList(),
-//       faq: json['faq'],
-//       columnAndBeam: json['column_and_beam'] == 'Yes',
-//     );
-//   }
+// class SplashScreen extends StatefulWidget {
+//   @override
+//   SplashScreenState createState() => SplashScreenState();
 // }
 
-// class SubCategoryController extends GetxController {
-//   var subCategories = <SubCategory>[].obs;
-//   var isLoading = true.obs;
+// class _SplashScreenState extends State<SplashScreen> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     Future.delayed(Duration(seconds: 2), () {
+//       Navigator.of(context).pushReplacement(
+//         MaterialPageRoute(builder: (context) => HomeScreen()),
+//       );
+//     });
+//   }
 
 //   @override
-//   void onInit() {
-//     fetchSubCategories();
-//     super.onInit();
-//   }
-
-//   void fetchSubCategories() async {
-//     const url = 'https://aci.aks.5g.in/api/sub-category';
-//     const token = '1063|gex9Wott6yd09zhyJi1Bjd5iMG4BRPRM9pA41jyz21aacdc9';
-//     const headers = {
-//       'Content-Type': 'application/json',
-//       'Authorization': 'Bearer $token',
-//     };
-//     final body = jsonEncode({"category_id": 1});
-
-//     try {
-//       isLoading(true);
-//       final response = await http.post(Uri.parse(url), headers: headers, body: body);
-//       if (response.statusCode == 200) {
-//         final data = jsonDecode(response.body);
-//         if (data['message'] == 'Success') {
-//           subCategories.value = (data['data']['category'] as List)
-//               .map((item) => SubCategory.fromJson(item))
-//               .toList();
-//         }
-//       }
-//     } finally {
-//       isLoading(false);
-//     }
-//   }
-
-//   void showBottomSheet(SubCategory subCategory) {
-//     Get.bottomSheet(
-//       Column(
-//         children: [
-//           ListTile(
-//             title: Text('Column Images'),
-//             onTap: () {
-              // Get.back();
-              // Get.to(() => ImagePage(images: subCategory.images));
-//             },
-//           ),
-//           ListTile(
-//             title: Text('Beam Images'),
-//             onTap: () {
-              // Get.back();
-              // Get.to(() => ImagePage(images: subCategory.beamImages));
-//             },
-//           ),
-//         ],
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: Text('Splash Screen', style: TextStyle(fontSize: 24)),
 //       ),
 //     );
 //   }
 // }
 
-// class SubCategoryPage extends StatelessWidget {
-//   final SubCategoryController controller = Get.put(SubCategoryController());
+// class HomeScreen extends StatefulWidget {
+//   @override
+//   HomeScreenState createState() => HomeScreenState();
+// }
+
+// class _HomeScreenState extends State<HomeScreen> {
+  // int _selectedIndex = 2;
+
+  // final List<GlobalKey<NavigatorState>> _navigatorKeys = List.generate(
+  //   5,
+  //   (index) => GlobalKey<NavigatorState>(),
+  // );
+
+  // void _onItemTapped(int index) {
+  //   if (_selectedIndex == index) {
+  //     _navigatorKeys[index].currentState!.popUntil((route) => route.isFirst);
+  //   } else {
+  //     setState(() {
+  //       _selectedIndex = index;
+  //     });
+  //   }
+  // }
+
+  // Widget _buildNavigator(int index, Widget child) {
+  //   return Navigator(
+  //     key: _navigatorKeys[index],
+  //     onGenerateRoute: (routeSettings) {
+  //       return MaterialPageRoute(
+  //         builder: (context) => child,
+  //       );
+  //     },
+  //   );
+  // }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('SubCategories')),
-//       body: Obx(() {
-//         if (controller.isLoading.value) {
-//           return Center(child: CircularProgressIndicator());
-//         }
-
-//         return ListView.builder(
-//           itemCount: controller.subCategories.length,
-//           itemBuilder: (context, index) {
-//             final subCategory = controller.subCategories[index];
-//             return ListTile(
-//               title: Text(subCategory.name),
-//               onTap: () {
-                // if (subCategory.columnAndBeam) {
-                //   controller.showBottomSheet(subCategory);
-                // } else {
-                //   Get.to(() => ImagePage(images: subCategory.images));
-                // }
-//               },
-//             );
-//           },
-//         );
-//       }),
+//     return 
+// Scaffold(
+//       body: Stack(
+//         children: <Widget>[
+//           Offstage(
+//             offstage: _selectedIndex != 0,
+//             child:
+//                 _buildNavigator(0, TabPage(title: 'Search', color: Colors.red)),
+//           ),
+//           Offstage(
+//             offstage: _selectedIndex != 1,
+//             child:
+//                 _buildNavigator(1, TabPage(title: 'Chat', color: Colors.green)),
+//           ),
+//           Offstage(
+//             offstage: _selectedIndex != 2,
+//             child:
+//                 _buildNavigator(2, TabPage(title: 'Home', color: Colors.blue)),
+//           ),
+//           Offstage(
+//             offstage: _selectedIndex != 3,
+//             child: _buildNavigator(
+//                 3, TabPage(title: 'Notifications', color: Colors.yellow)),
+//           ),
+//           Offstage(
+//             offstage: _selectedIndex != 4,
+//             child: _buildNavigator(
+//                 4, TabPage(title: 'Settings', color: Colors.purple)),
+//           ),
+//         ],
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         type: BottomNavigationBarType.fixed,
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.search),
+//             label: 'Search',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.chat),
+//             label: 'Chat',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.home),
+//             label: 'Home',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.notifications),
+//             label: 'Notifications',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.settings),
+//             label: 'Settings',
+//           ),
+//         ],
+//         currentIndex: _selectedIndex,
+//         selectedItemColor: Colors.amber[800],
+//         onTap: _onItemTapped,
+//       ),
 //     );
 //   }
 // }
 
-// class ImagePage extends StatelessWidget {
-  // final List<String> images;
+// class TabPage extends StatelessWidget {
+//   final String title;
+//   final Color color;
 
-  // ImagePage({required this.images});
+//   const TabPage({required this.title, required this.color});
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(title: Text('Images')),
-      // body: GridView.builder(
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 2,
-      //   ),
-      //   itemCount: images.length,
-      //   itemBuilder: (context, index) {
-      //     return Image.network('https://aci.aks.5g.in/${images[index]}');
-      //   },
-      // ),
+//       appBar: AppBar(
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Text(
+//               '$title Page',
+//               style: TextStyle(fontSize: 24),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //       builder: (context) => SubPage(title: '$title Subpage')),
+                // );
+//               },
+//               child: Text('Go to Subpage'),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.of(context).push(
+//                   MaterialPageRoute(
+//                       builder: (context) =>
+//                           SubPahbnjmge(title: '$title Subpage')),
+//                 );
+//               },
+//               child: Text('Go to dtfgyhukijlkom,l'),
+//             ),
+//           ],
+//         ),
+//       ),
+//       backgroundColor: color,
+//     );
+//   }
+// }
+
+// class SubPage extends StatelessWidget {
+//   final String title;
+
+//   const SubPage({required this.title});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Text(
+//           '$title Content',
+//           style: TextStyle(fontSize: 24),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class SubPahbnjmge extends StatelessWidget {
+//   final String title;
+
+//   const SubPahbnjmge({required this.title});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Text(
+//           '$title Contfghjent',
+//           style: TextStyle(fontSize: 24),
+//         ),
+//       ),
 //     );
 //   }
 // }

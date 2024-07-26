@@ -1,14 +1,14 @@
-class DashboardResponse {
+class Dashboard {
   Data data;
   String message;
 
-  DashboardResponse({
+  Dashboard({
     required this.data,
     required this.message,
   });
 
-  factory DashboardResponse.fromJson(Map<String, dynamic> json) {
-    return DashboardResponse(
+  factory Dashboard.fromJson(Map<String, dynamic> json) {
+    return Dashboard(
       data: Data.fromJson(json['data']),
       message: json['message'],
     );
@@ -17,7 +17,7 @@ class DashboardResponse {
 
 class Data {
   List<CategoryElement> category;
-  Banner banner;
+  List<Banners> banner;
 
   Data({
     required this.category,
@@ -25,13 +25,17 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) {
+    var bannersMap = json['banner'] as Map<String, dynamic>;
+    List<Banners> bannerItems = bannersMap.entries
+        .map((entry) => Banners(imageUrl: entry.value))
+        .toList();
     var categoryList = json['category'] as List;
     List<CategoryElement> categories =
-    categoryList.map((e) => CategoryElement.fromJson(e)).toList();
+        categoryList.map((e) => CategoryElement.fromJson(e)).toList();
 
     return Data(
       category: categories,
-      banner: Banner.fromJson(json['banner']),
+      banner: bannerItems,
     );
   }
 }
@@ -53,31 +57,7 @@ class CategoryElement {
   }
 }
 
-class Banner {
-  String topBanner1;
-  String topBanner2;
-  String topBanner3;
-  String topBanner4;
-  String topBanner5;
-  String bottom1;
-
-  Banner({
-    required this.topBanner1,
-    required this.topBanner2,
-    required this.topBanner3,
-    required this.topBanner4,
-    required this.topBanner5,
-    required this.bottom1,
-  });
-
-  factory Banner.fromJson(Map<String, dynamic> json) {
-    return Banner(
-      topBanner1: json['top_banner_1'],
-      topBanner2: json['top_banner_2'],
-      topBanner3: json['top_banner_3'],
-      topBanner4: json['top_banner_4'],
-      topBanner5: json['top_banner_5'],
-      bottom1: json['bottom_1'],
-    );
-  }
+class Banners {
+  final String imageUrl;
+  Banners({required this.imageUrl});
 }

@@ -13,10 +13,22 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+
     _loadTokenAndNavigate();
   }
 
@@ -25,13 +37,19 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 2),
           () {
-        if (Get.find<AuthController>().getAuthToken()!= null) {
+        if (Get.find<AuthController>().getAuthToken() != null) {
           Get.offAndToNamed('/dash');
         } else {
           Get.offAndToNamed('/signup');
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -59,25 +77,41 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
           Center(
-            child: Container(
-              width: screenWidth * 0.45,
-              height: screenWidth * 0.45,
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.circular(screenWidth * 0.25),
-              ),
+            child: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _scaleAnimation.value,
+                  child: Container(
+                    width: screenWidth * 0.45,
+                    height: screenWidth * 0.45,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(screenWidth * 0.25),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           Center(
-            child: Container(
-              width: screenWidth * 0.3,
-              height: screenWidth * 0.3,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Images.logo),
-                  fit: BoxFit.contain,
-                ),
-              ),
+            child: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _scaleAnimation.value,
+                  child: Container(
+                    width: screenWidth * 0.3,
+                    height: screenWidth * 0.3,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(Images.logo),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

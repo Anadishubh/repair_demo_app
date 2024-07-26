@@ -1,10 +1,12 @@
 import 'package:aci_app/views/screens/arrangevisit/arrange_visit_page.dart';
+import 'package:aci_app/views/screens/arrangevisit/form_page.dart';
 import 'package:aci_app/views/screens/bottom/bottom_nav.dart';
 import 'package:aci_app/views/screens/corrosion/corrosion_screen.dart';
+import 'package:aci_app/views/screens/dashboard/dashboard_screen.dart';
 import 'package:aci_app/views/screens/repair/repair_methado.dart';
 import 'package:aci_app/views/screens/signup/signup_screen.dart';
 import 'package:get/get.dart';
-
+import '../views/screens/faq/faq_page.dart';
 import '../views/screens/splash/splash_screen.dart';
 
 class AppRoutes {
@@ -16,7 +18,10 @@ class AppRoutes {
   static const String repair = '/repair';
   static const String visit = '/visit';
   static const String faq = '/faq';
-  static const String deshboard2 = '/deshboard2';
+  static const String form = '/form';
+  static const String mainpage = '/mainpage';
+
+  // static const String dashBoard2 = '/dashboard2';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -37,15 +42,9 @@ class AppRoutes {
       transition: Transition.fadeIn,
       // transitionDuration: const Duration(milliseconds: 400),
     ),
-    // GetPage(
-    //   name: beam,
-    //   page: () => const BeamColumn(selectionType: ''),
-    //   transition: Transition.fadeIn,
-    //   // transitionDuration: const Duration(milliseconds: 400),
-    // ),
     GetPage(
       name: corrosion,
-      page: () => const CorrosionScreen(),
+      page: () => CorrosionScreen(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
@@ -57,19 +56,31 @@ class AppRoutes {
     ),
     GetPage(
       name: visit,
-      page: () => const ArrangeVisitPage(),
+      page: () => ArrangeVisitPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
+    GetPage(
+      name: faq,
+      page: () => const FaqPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
+    GetPage(
+      name: form,
+      page: () => const FormPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 400),
+    ),
+    GetPage(
+      name: mainpage,
+      page: () => const DashboardScreen(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
     // GetPage(
-    //   name: faq,
-    //   page: () => const FaqPage(),
-    //   transition: Transition.fadeIn,
-    //   transitionDuration: const Duration(milliseconds: 400),
-    // ),
-    // GetPage(
-    //   name: deshboard2,
-    //   page: () =>  Deshbaord2(),
+    //   name: dashBoard2,
+    //   page: () =>  Dashboard2(remainingItems: [],),
     //   transition: Transition.fadeIn,
     //   transitionDuration: const Duration(milliseconds: 400),
     // ),

@@ -16,6 +16,13 @@ class TokenStorage {
   static Future<void> loadToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token');
+    print("Loaded Token: $token"); // Debugging line
+  }
+
+  static Future<void> saveToken(String newToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', newToken);
+    token = newToken;
   }
 }
 
@@ -212,7 +219,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/login');
+                      // Get.toNamed('/login');
                     },
                     child: Text(
                       ' Login',

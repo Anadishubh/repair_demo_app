@@ -43,16 +43,12 @@ class _FaqPageState extends State<FaqPage> {
                     color: AppColors.primaryColor,
                   ),
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const SizedBox(width: 15),
                 Image.asset(
                   Images.logo,
                   height: 40,
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const SizedBox(width: 15),
                 Text(
                   'ADHAR CONSULTANCY\nAND INFRASTRUCTURE',
                   style: FontConstant.styleBold(
@@ -60,22 +56,84 @@ class _FaqPageState extends State<FaqPage> {
                     color: AppColors.primaryColor,
                   ),
                 ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    // Implement share functionality
-                  },
-                  child: const Icon(
-                    Icons.share,
-                    color: AppColors.primaryColor,
-                  ),
-                ),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            HtmlWidget(_authController.subCategories[0].faq),
+            const SizedBox(height: 30),
+            _authController.subCategories.isNotEmpty &&
+                    _authController.subCategories[0].faq.isNotEmpty
+                ? HtmlWidget(
+                    _authController.subCategories[0].faq,
+                    textStyle: FontConstant.styleRegular(
+                      fontSize: 14,
+                      color: AppColors.primaryColor,
+                    ),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Q.	What does Adhar Repair App Do?',
+                        style: FontConstant.styleSemiBold(
+                            fontSize: 16, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'A. Adhar Repair APP is an interactive mobile tool that not only makes understanding of structural distress easy but also allows its users to find solutions specific to their building situation.',
+                        style: FontConstant.styleRegular(
+                            fontSize: 15, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Q.	How Does Adhar app work?',
+                        style: FontConstant.styleSemiBold(
+                            fontSize: 16, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Adhar App explains structural cracks are manifestation of internal Stresses/ Reversal processes/ Anomalies in a structure and are not just surface aberrations.',
+                        style: FontConstant.styleRegular(
+                            fontSize: 15, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Q.	Does the app helps identifying visual clues of distress?',
+                        style: FontConstant.styleSemiBold(
+                            fontSize: 16, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'A.	Over all aim of the app understand the root cause of visual distress and whether its local or global.',
+                        style: FontConstant.styleRegular(
+                            fontSize: 15, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Q.	Does the App help assess life of the repairs?',
+                        style: FontConstant.styleSemiBold(
+                            fontSize: 16, color: AppColors.primaryColor),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'A.	Also, when to begin the repairs and how late is too late along with life term assessment of repairs (how long are these going to last).',
+                        style: FontConstant.styleRegular(
+                            fontSize: 15, color: AppColors.primaryColor),
+                      ),
+                    ],
+                  ),
             const SizedBox(height: 30),
             CustomShadowButton(
               text: 'Book Appointment',
@@ -83,8 +141,10 @@ class _FaqPageState extends State<FaqPage> {
                 Get.offAndToNamed('/visit');
               },
               color: AppColors.primaryColor,
-              textStyle:
-                  FontConstant.styleSemiBold(fontSize: 18, color: Colors.white),
+              textStyle: FontConstant.styleSemiBold(
+                fontSize: 18,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
