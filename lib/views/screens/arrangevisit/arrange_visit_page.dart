@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:aci_app/controller/auth_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +72,11 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
         child: Obx(
           () {
             if (controller.isLoading.value) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.primaryColor,
+                ),
+              );
             } else if (controller.errorMessage.isNotEmpty) {
               return Center(child: Text(controller.errorMessage.value));
             } else {

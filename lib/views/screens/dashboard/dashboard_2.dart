@@ -33,16 +33,6 @@ class _Dashboard2State extends State<Dashboard2> {
   void initState() {
     super.initState();
     _initializeData();
-    _initializeCategories();
-  }
-
-  List<int> _allCategoriesExcludingStatic = [];
-
-  void _initializeCategories() {
-    _allCategoriesExcludingStatic = categories
-        .where((item) => item.id != widget.categoryId)
-        .map((item) => item.id)
-        .toList();
   }
 
   @override
@@ -73,7 +63,9 @@ class _Dashboard2State extends State<Dashboard2> {
 
   Widget _buildLoadingIndicator() {
     return const Center(
-      child: CircularProgressIndicator(),
+      child: CircularProgressIndicator(
+        color: AppColors.primaryColor,
+      ),
     );
   }
 
@@ -246,6 +238,11 @@ class _Dashboard2State extends State<Dashboard2> {
   Widget _buildGridView(double screenWidth, double screenHeight) {
     final visibleCategoryIds =
         _authController.subCategories.map((item) => item.categoryId).toSet();
+    final filteredCategories = categories
+        .where((item) =>
+            !visibleCategoryIds.contains(item.id) ||
+            _previouslyHiddenCategoryId == item.id)
+        .toList();
 
     return Padding(
       padding: EdgeInsets.only(top: screenHeight * 0.49, left: 10, right: 10),
@@ -256,177 +253,51 @@ class _Dashboard2State extends State<Dashboard2> {
           crossAxisCount: 2,
           childAspectRatio: (screenWidth / 2.4) / (screenHeight * 0.05),
         ),
-        itemCount: categories
-            .where((item) =>
-                !visibleCategoryIds.contains(item.id) ||
-                _previouslyHiddenCategoryId == item.id)
-            .length,
+        itemCount: filteredCategories.length,
         itemBuilder: (context, index) {
-          final item = categories
-              .where((item) =>
-                  !visibleCategoryIds.contains(item.id) ||
-                  _previouslyHiddenCategoryId == item.id)
-              .toList()[index];
+          final item = filteredCategories[index];
+          // final isStatic = item.id == widget.categoryId;
+          // final isHidden = _previouslyHiddenCategoryId == item.id;
 
-          final isStatic = item.id == widget.categoryId;
-          final isHidden = _previouslyHiddenCategoryId == item.id;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                final currentHiddenId = _previouslyHiddenCategoryId;
+                _previouslyHiddenCategoryId = item.id;
 
-          if (isStatic) {
-            return isHidden
-                ? const SizedBox.shrink()
-                : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _previouslyHiddenCategoryId = item.id;
-                        Get.find<AuthController>()
-                            .fetchSubCategories(categoryid: item.id);
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(7),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.greyLight,
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.02),
-                        ),
-                        padding: EdgeInsets.all(screenWidth * 0.0),
-                        child: Center(
-                          child: Text(
-                            item.name,
-                            textAlign: TextAlign.center,
-                            style: FontConstant.styleSemiBold(
-                                fontSize: 13, color: AppColors.primaryColor),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-          } else {
-            return isHidden
-                ? const SizedBox.shrink()
-                : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _previouslyHiddenCategoryId = item.id;
-                        Get.find<AuthController>()
-                            .fetchSubCategories(categoryid: item.id);
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(7),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.greyLight,
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.02),
-                        ),
-                        padding: EdgeInsets.all(screenWidth * 0.0),
-                        child: Center(
-                          child: Text(
-                            item.name,
-                            textAlign: TextAlign.center,
-                            style: FontConstant.styleSemiBold(
-                              fontSize: 13,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-          }
+                //  if (!isStatic) {
+                Get.find<AuthController>()
+                    .fetchSubCategories(categoryid: item.id);
+                //}
+
+                //  if (isStatic && currentHiddenId != null) {
+                _previouslyHiddenCategoryId = currentHiddenId;
+                //}
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(7),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.greyLight,
+                  borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                ),
+                padding: EdgeInsets.all(screenWidth * 0.0),
+                child: Center(
+                  child: Text(
+                    item.name,
+                    textAlign: TextAlign.center,
+                    style: FontConstant.styleSemiBold(
+                        fontSize: 13, color: AppColors.primaryColor),
+                  ),
+                ),
+              ),
+            ),
+          );
         },
       ),
     );
   }
-
-  // Widget _buildGridView(double screenWidth, double screenHeight) {
-  //   return Padding(
-  //     padding: EdgeInsets.only(top: screenHeight * 0.48, left: 10, right: 10),
-  //     child: GridView.builder(
-  //       physics: const NeverScrollableScrollPhysics(),
-  //       shrinkWrap: true,
-  //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //         crossAxisCount: 2,
-  //         childAspectRatio: (screenWidth / 2.4) / (screenHeight * 0.05),
-  //       ),
-  //       itemCount: categories.length,
-  //       itemBuilder: (context, index) {
-  //         final item = categories[index];
-  //         final isStatic = item.id == widget.categoryId;
-  //         final isHidden = _previouslyHiddenCategoryId == item.id;
-
-  //         if (isStatic) {
-  //           return isHidden
-  //               ? const SizedBox.shrink()
-  //               : GestureDetector(
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _previouslyHiddenCategoryId = item.id;
-  //                       Get.find<AuthController>()
-  //                           .fetchSubCategories(categoryid: item.id);
-  //                     });
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(7),
-  //                     child: Container(
-  //                       decoration: BoxDecoration(
-  //                         color: AppColors.greyLight,
-  //                         borderRadius:
-  //                             BorderRadius.circular(screenWidth * 0.02),
-  //                       ),
-  //                       padding: EdgeInsets.all(screenWidth * 0.0),
-  //                       child: Center(
-  //                         child: Text(
-  //                           item.name,
-  //                           textAlign: TextAlign.center,
-  //                           style: FontConstant.styleSemiBold(
-  //                               fontSize: 13, color: AppColors.primaryColor),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 );
-  //         } else {
-  //           return isHidden
-  //               ? const SizedBox.shrink()
-  //               : GestureDetector(
-  //                   onTap: () {
-  //                     setState(() {
-  //                       _previouslyHiddenCategoryId = item.id;
-  //                       Get.find<AuthController>()
-  //                           .fetchSubCategories(categoryid: item.id);
-  //                     });
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(7),
-  //                     child: Container(
-  //                       decoration: BoxDecoration(
-  //                         color: AppColors.greyLight,
-  //                         borderRadius:
-  //                             BorderRadius.circular(screenWidth * 0.02),
-  //                       ),
-  //                       padding: EdgeInsets.all(screenWidth * 0.0),
-  //                       child: Center(
-  //                         child: Text(
-  //                           item.name,
-  //                           textAlign: TextAlign.center,
-  //                           style: FontConstant.styleSemiBold(
-  //                             fontSize: 13,
-  //                             color: AppColors.primaryColor,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 );
-  //         }
-  //       },
-  //     ),
-
-  //   );
-  // }
 
   Future<void> _initializeData() async {
     await TokenStorage.loadToken(); // Load the token before making requests

@@ -53,7 +53,7 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
       ),
       backgroundColor: AppColors.backgroundColor,
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,))
           : SingleChildScrollView(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.05,

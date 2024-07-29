@@ -41,7 +41,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
     );
-    return shouldExit ?? false; // Ensure a non-null boolean is returned
+    return shouldExit ?? false;
   }
 
   @override
@@ -89,7 +89,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildLoadingIndicator() {
     return const Center(
-      child: CircularProgressIndicator(),
+      child: CircularProgressIndicator(color: AppColors.primaryColor,),
     );
   }
 
