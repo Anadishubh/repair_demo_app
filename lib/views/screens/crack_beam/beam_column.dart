@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:aci_app/controller/auth_controller.dart';
 import 'package:aci_app/views/screens/arrangevisit/form_page.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../../constants/font_constant.dart';
 import '../../../utils/color.dart';
 import '../../../utils/models/dashboard.dart';
@@ -31,6 +32,7 @@ class _BeamColumnState extends State<BeamColumn> {
   List<CategoryElement> categories = [];
   bool isLoading = true;
   bool isYesTapped = false;
+  AuthController controller = Get.find<AuthController>();
 
   @override
   void initState() {
@@ -57,7 +59,7 @@ class _BeamColumnState extends State<BeamColumn> {
         leading: IconButton(
           icon: const Icon(CupertinoIcons.back, color: Colors.white),
           onPressed: () {
-            Get.toNamed('/dash');
+            Navigator.pop(context);
           },
         ),
       ),
@@ -72,14 +74,14 @@ class _BeamColumnState extends State<BeamColumn> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: screenHeight * 0.5,
+                    height: screenHeight * 0.465,
                     child: Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: screenHeight * 0.02),
+                              vertical: screenHeight * 0.005),
                           child: Text(
-                            'Are you facing anything like these?',
+                            controller.subCategories.first.question,
                             style: FontConstant.styleBold(
                               fontSize: screenWidth * 0.045,
                               color: Colors.black,
@@ -107,10 +109,11 @@ class _BeamColumnState extends State<BeamColumn> {
         child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: widget.images.length > 1 ? 2 : 1,
             crossAxisSpacing: screenWidth * 0.03,
             mainAxisSpacing: screenWidth * 0.03,
-            childAspectRatio: 2.1 / 2,
+            childAspectRatio:
+                _calculateChildAspectRatio(widget.images.length, screenWidth),
           ),
           itemCount: widget.images.length,
           itemBuilder: (context, index) {
@@ -119,6 +122,17 @@ class _BeamColumnState extends State<BeamColumn> {
         ),
       ),
     );
+  }
+
+  double _calculateChildAspectRatio(int itemCount, double screenWidth) {
+    if (itemCount == 0) return 1.0;
+    if (itemCount == 1) {
+      return screenWidth / (screenWidth * 0.75);
+    }
+    if (itemCount == 2) {
+      return (screenWidth / 2) / (screenWidth * 0.5);
+    }
+    return 2.25 / 2;
   }
 
   Widget _buildImageTile(String imageUrl, double screenWidth) {

@@ -1,7 +1,7 @@
 import 'package:aci_app/constants/font_constant.dart';
 import 'package:aci_app/utils/color.dart';
 import 'package:aci_app/utils/images.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:aci_app/views/screens/arrangevisit/arrange_visit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -34,15 +34,6 @@ class _FaqPageState extends State<FaqPage> {
           children: [
             Row(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: const Icon(
-                    CupertinoIcons.back,
-                    color: AppColors.primaryColor,
-                  ),
-                ),
                 const SizedBox(width: 15),
                 Image.asset(
                   Images.logo,
@@ -138,7 +129,11 @@ class _FaqPageState extends State<FaqPage> {
             CustomShadowButton(
               text: 'Book Appointment',
               onPressed: () {
-                Get.offAndToNamed('/visit');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ArrangeVisitPage(),
+                  ),
+                );
               },
               color: AppColors.primaryColor,
               textStyle: FontConstant.styleSemiBold(

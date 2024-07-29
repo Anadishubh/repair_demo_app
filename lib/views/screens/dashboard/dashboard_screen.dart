@@ -23,6 +23,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<CategoryElement> categories = [];
   bool isLoading = true;
 
+  Future<bool> _onWillPop() async {
+    final shouldExit = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirm Exit'),
+        content: const Text('Are you sure you want to exit the app?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+    return shouldExit ?? false; // Ensure a non-null boolean is returned
+  }
+
   @override
   void initState() {
     super.initState();
@@ -34,13 +55,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildAppBar(screenWidth),
-      body: isLoading
-          ? _buildLoadingIndicator()
-          : _buildDashboard(screenWidth, screenHeight),
-      //  bottomNavigationBar: const BottomNav(),
+    return PopScope(
+      onPopInvoked: (canPop) async {
+        if (!canPop) {
+          bool shouldExit = await _onWillPop();
+          if (shouldExit) {
+            // Exit the app or navigate to a different screen
+          }
+        }
+      },
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: _buildAppBar(screenWidth),
+        body: isLoading
+            ? _buildLoadingIndicator()
+            : _buildDashboard(screenWidth, screenHeight),
+      ),
     );
   }
 
@@ -132,7 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildCarousel(double screenWidth, double screenHeight) {
     return Positioned(
-      top: screenHeight * 0.01, // Adjust top position as needed
+      top: screenHeight * 0.01,
       left: 5,
       right: 5,
       child: Padding(
@@ -207,15 +238,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         ),
                       );
-                      // Get.to(
-                      // Dashboard2(
-                      //   remainingItems: remainingItems,
-                      //   categoryId: item.id,
-                      // ),
-                      //   duration: const Duration(
-                      //       milliseconds: AppConstants.screenTransitionTime),
-                      //   transition: Transition.rightToLeft,
-                      // );
                     },
                     child: Container(
                       padding:
@@ -266,7 +288,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final token = TokenStorage.token;
 
     if (token == null) {
-      print('No token available');
       return;
     }
 
@@ -288,13 +309,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           isLoading = false;
         });
       } else {
-        print('Failed to load data: ${response.statusCode}');
         setState(() {
           isLoading = false;
         });
       }
     } catch (e) {
-      print('Error fetching data: $e');
       setState(() {
         isLoading = false;
       });

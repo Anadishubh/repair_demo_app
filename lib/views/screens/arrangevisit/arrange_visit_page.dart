@@ -4,7 +4,7 @@ import 'package:aci_app/controller/auth_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whatsapp_share/whatsapp_share.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/button_constant.dart';
 import '../../../constants/font_constant.dart';
 import '../../../constants/textfield_constant.dart';
@@ -35,13 +35,8 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
       message += '${i + 1}. ${controller.questions[i]}\n';
       message += 'Answer: ${answers[i]}\n\n';
     }
-
-    // Share via WhatsApp
-    await WhatsappShare.share(
-      text: message,
-      linkUrl: '',
-      phone: '8787787878',
-    );
+    await launchUrl(Uri.parse(
+        "https://api.whatsapp.com/send/?phone=9873596738&text=$message"));
   }
 
   bool _isLoading = true;
@@ -145,7 +140,8 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
                             height: 10,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 0.0),
                             child: CustomBasicButton(
                               text: 'Share on WhatsApp',
                               onPressed: shareViaWhatsApp,
@@ -163,7 +159,10 @@ class _ArrangeVisitPageState extends State<ArrangeVisitPage> {
                                 horizontal: 0, vertical: 15),
                             child: CustomBasicButton(
                               text: 'Share on Mail',
-                              onPressed: () {},
+                              onPressed: () async {
+                                await launchUrl(Uri.parse(
+                                    "mailto:info@aci-india.co.in?subject=subject&body=Hello"));
+                              },
                               color: AppColors.primaryColor,
                               textStyle: FontConstant.styleBold(
                                   fontSize: 14, color: Colors.white),

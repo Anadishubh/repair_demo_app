@@ -6,6 +6,7 @@ class SubCategory {
   final List<String> beamImages;
   final String faq;
   final bool columnAndBeam;
+  final String question;
 
   SubCategory({
     required this.id,
@@ -15,6 +16,7 @@ class SubCategory {
     required this.beamImages,
     required this.faq,
     required this.columnAndBeam,
+    required this.question
   });
 
   factory SubCategory.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class SubCategory {
       id: json['id'],
       categoryId: json['category_id'],
       name: json['name'],
+      question: json['question'],
       images: [
         json['image_1'],
         json['image_2'],

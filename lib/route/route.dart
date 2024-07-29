@@ -44,7 +44,7 @@ class AppRoutes {
     ),
     GetPage(
       name: corrosion,
-      page: () => CorrosionScreen(),
+      page: () => const CorrosionScreen(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),

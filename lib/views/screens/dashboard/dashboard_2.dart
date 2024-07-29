@@ -108,10 +108,10 @@ class _Dashboard2State extends State<Dashboard2> {
       padding: EdgeInsets.only(
           left: screenWidth * 0.05,
           right: screenWidth * 0.05,
-          bottom: screenHeight * 0.11),
+          bottom: screenHeight * 0.1),
       child: Center(
         child: Container(
-          height: screenHeight * 0.24,
+          height: screenHeight * 0.245,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(screenWidth * 0.03),
@@ -227,8 +227,7 @@ class _Dashboard2State extends State<Dashboard2> {
                               child: Text(
                                 item.name,
                                 style: FontConstant.styleMedium(
-                                    fontSize: 14,
-                                    color: Colors.white),
+                                    fontSize: 14, color: Colors.white),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -245,8 +244,11 @@ class _Dashboard2State extends State<Dashboard2> {
   }
 
   Widget _buildGridView(double screenWidth, double screenHeight) {
+    final visibleCategoryIds =
+        _authController.subCategories.map((item) => item.categoryId).toSet();
+
     return Padding(
-      padding: EdgeInsets.only(top: screenHeight * 0.48, left: 10, right: 10),
+      padding: EdgeInsets.only(top: screenHeight * 0.49, left: 10, right: 10),
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -254,9 +256,18 @@ class _Dashboard2State extends State<Dashboard2> {
           crossAxisCount: 2,
           childAspectRatio: (screenWidth / 2.4) / (screenHeight * 0.05),
         ),
-        itemCount: categories.length,
+        itemCount: categories
+            .where((item) =>
+                !visibleCategoryIds.contains(item.id) ||
+                _previouslyHiddenCategoryId == item.id)
+            .length,
         itemBuilder: (context, index) {
-          final item = categories[index];
+          final item = categories
+              .where((item) =>
+                  !visibleCategoryIds.contains(item.id) ||
+                  _previouslyHiddenCategoryId == item.id)
+              .toList()[index];
+
           final isStatic = item.id == widget.categoryId;
           final isHidden = _previouslyHiddenCategoryId == item.id;
 
@@ -327,47 +338,95 @@ class _Dashboard2State extends State<Dashboard2> {
           }
         },
       ),
-      // GridView.builder(
-      //   physics: const NeverScrollableScrollPhysics(),
-      //   shrinkWrap: true,
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 2,
-      //     crossAxisSpacing: screenWidth * 0.02,
-      //     mainAxisSpacing: screenHeight * 0.01,
-      //     childAspectRatio: (screenWidth / 2.8) / (screenHeight * 0.07),
-      //   ),
-      //   itemCount: categories.length,
-      //   itemBuilder: (context, index) {
-      //     final item = categories[index];
-      //     return GestureDetector(
-      //       onTap: () {
-      // Get.find<AuthController>()
-      //     .fetchSubCategories(categoryid: item.id);
-      //       },
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Container(
-      //           decoration: BoxDecoration(
-      //             color: AppColors.greyLight,
-      //             borderRadius: BorderRadius.circular(screenWidth * 0.02),
-      //           ),
-      //           padding: EdgeInsets.all(screenWidth * 0.0),
-      //           child: Center(
-      //             child: Text(
-      //               item.name,
-      //               textAlign: TextAlign.center,
-      //               style: FontConstant.styleSemiBold(
-      //                   fontSize: screenWidth * 0.04,
-      //                   color: AppColors.primaryColor),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     );
-      //   },
-      // ),
     );
   }
+
+  // Widget _buildGridView(double screenWidth, double screenHeight) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(top: screenHeight * 0.48, left: 10, right: 10),
+  //     child: GridView.builder(
+  //       physics: const NeverScrollableScrollPhysics(),
+  //       shrinkWrap: true,
+  //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 2,
+  //         childAspectRatio: (screenWidth / 2.4) / (screenHeight * 0.05),
+  //       ),
+  //       itemCount: categories.length,
+  //       itemBuilder: (context, index) {
+  //         final item = categories[index];
+  //         final isStatic = item.id == widget.categoryId;
+  //         final isHidden = _previouslyHiddenCategoryId == item.id;
+
+  //         if (isStatic) {
+  //           return isHidden
+  //               ? const SizedBox.shrink()
+  //               : GestureDetector(
+  //                   onTap: () {
+  //                     setState(() {
+  //                       _previouslyHiddenCategoryId = item.id;
+  //                       Get.find<AuthController>()
+  //                           .fetchSubCategories(categoryid: item.id);
+  //                     });
+  //                   },
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.all(7),
+  //                     child: Container(
+  //                       decoration: BoxDecoration(
+  //                         color: AppColors.greyLight,
+  //                         borderRadius:
+  //                             BorderRadius.circular(screenWidth * 0.02),
+  //                       ),
+  //                       padding: EdgeInsets.all(screenWidth * 0.0),
+  //                       child: Center(
+  //                         child: Text(
+  //                           item.name,
+  //                           textAlign: TextAlign.center,
+  //                           style: FontConstant.styleSemiBold(
+  //                               fontSize: 13, color: AppColors.primaryColor),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 );
+  //         } else {
+  //           return isHidden
+  //               ? const SizedBox.shrink()
+  //               : GestureDetector(
+  //                   onTap: () {
+  //                     setState(() {
+  //                       _previouslyHiddenCategoryId = item.id;
+  //                       Get.find<AuthController>()
+  //                           .fetchSubCategories(categoryid: item.id);
+  //                     });
+  //                   },
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.all(7),
+  //                     child: Container(
+  //                       decoration: BoxDecoration(
+  //                         color: AppColors.greyLight,
+  //                         borderRadius:
+  //                             BorderRadius.circular(screenWidth * 0.02),
+  //                       ),
+  //                       padding: EdgeInsets.all(screenWidth * 0.0),
+  //                       child: Center(
+  //                         child: Text(
+  //                           item.name,
+  //                           textAlign: TextAlign.center,
+  //                           style: FontConstant.styleSemiBold(
+  //                             fontSize: 13,
+  //                             color: AppColors.primaryColor,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 );
+  //         }
+  //       },
+  //     ),
+
+  //   );
+  // }
 
   Future<void> _initializeData() async {
     await TokenStorage.loadToken(); // Load the token before making requests
@@ -379,7 +438,6 @@ class _Dashboard2State extends State<Dashboard2> {
     final token = TokenStorage.token;
 
     if (token == null) {
-      print('No token available');
       return;
     }
 
@@ -401,13 +459,11 @@ class _Dashboard2State extends State<Dashboard2> {
           isLoading = false;
         });
       } else {
-        print('Failed to load data: ${response.statusCode}');
         setState(() {
           isLoading = false;
         });
       }
     } catch (e) {
-      print('Error fetching data: $e');
       setState(() {
         isLoading = false;
       });

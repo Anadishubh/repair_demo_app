@@ -27,12 +27,14 @@ class SharePage extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  await _shareViaEmail('Hello, check this out!');
+                  await launchUrl(Uri.parse(
+                      "mailto:info@aci-india.co.in?subject=subject&body=Hello"));
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: AppColors.primaryColor,
                   backgroundColor: AppColors.lightColor, // Text and icon color
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -59,24 +61,5 @@ class SharePage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _shareViaEmail(String text) async {
-    const String recipientEmail = 'info@aci-india.co.in';
-    final Uri emailUri = Uri(
-      scheme: 'mailto',
-      path: recipientEmail,
-      query: Uri.encodeQueryComponent('subject=Check this out&body=$text'),
-    );
-
-    try {
-      if (await canLaunchUrl(emailUri)) {
-        await launchUrl(emailUri);
-      } else {
-        throw 'Could not launch $emailUri';
-      }
-    } catch (e) {
-      print('Error sharing content via email: $e');
-    }
   }
 }
