@@ -15,13 +15,16 @@ class BeamColumn extends StatefulWidget {
   final List<String> images;
   final int? categoryId;
   final int? subcategoryId;
+  String? subcatroyesname;
+  String? catergonme;
 
-  const BeamColumn({
-    super.key,
-    required this.images,
-    this.categoryId,
-    this.subcategoryId,
-  });
+  BeamColumn(
+      {super.key,
+      required this.images,
+      this.categoryId,
+      this.subcategoryId,
+      this.subcatroyesname,
+      this.catergonme});
 
   @override
   State<BeamColumn> createState() => _BeamColumnState();
@@ -50,7 +53,7 @@ class _BeamColumnState extends State<BeamColumn> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         title: Text(
-          'Crack Awareness/Corrosion Crack/Beam',
+          '${widget.catergonme}/${widget.subcatroyesname}',
           style: FontConstant.styleBold(
             fontSize: screenWidth * 0.035,
             color: Colors.white,
@@ -92,7 +95,7 @@ class _BeamColumnState extends State<BeamColumn> {
                       ],
                     ),
                   ),
-                  _buildYesNoButtons(context),
+                  _buildYesNoButtons(context,widget.catergonme,widget.subcatroyesname),
                 ],
               ),
             ),
@@ -205,7 +208,7 @@ class _BeamColumnState extends State<BeamColumn> {
     );
   }
 
-  Widget _buildYesNoButtons(BuildContext context) {
+  Widget _buildYesNoButtons(BuildContext context,String? catname,String?subcatname) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
@@ -295,6 +298,8 @@ class _BeamColumnState extends State<BeamColumn> {
                     builder: (context) => CorrosionScreen(
                       categoryId: widget.categoryId,
                       subcategoryId: widget.subcategoryId,
+                      catoname: widget.catergonme,
+                      subcatoname: widget.subcatroyesname,
                     ),
                   ),
                 );

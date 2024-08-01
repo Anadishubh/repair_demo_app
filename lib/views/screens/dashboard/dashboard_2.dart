@@ -16,7 +16,12 @@ import '../crack_beam/beam_column.dart';
 class Dashboard2 extends StatefulWidget {
   final List<CategoryElement> remainingItems;
   int? categoryId;
-  Dashboard2({super.key, required this.remainingItems, this.categoryId});
+  String? categroyname;
+  Dashboard2(
+      {super.key,
+      required this.remainingItems,
+      this.categoryId,
+      this.categroyname});
 
   @override
   State<Dashboard2> createState() => _Dashboard2State();
@@ -45,7 +50,8 @@ class _Dashboard2State extends State<Dashboard2> {
       appBar: _buildAppBar(screenWidth),
       body: isLoading
           ? _buildLoadingIndicator()
-          : _buildDashboard(screenWidth, screenHeight),
+          : _buildDashboard(
+              screenWidth, screenHeight, widget.categroyname.toString()),
     );
   }
 
@@ -69,14 +75,15 @@ class _Dashboard2State extends State<Dashboard2> {
     );
   }
 
-  Widget _buildDashboard(double screenWidth, double screenHeight) {
+  Widget _buildDashboard(
+      double screenWidth, double screenHeight, String categroname) {
     return Stack(
       children: [
         _buildBackgroundImage(screenHeight),
         _buildGradientContainer(screenWidth, screenHeight),
         _buildLogoContainer(screenHeight),
         _buildCarousel(screenWidth, screenHeight),
-        _buildCategories(screenWidth, screenHeight),
+        _buildCategories(screenWidth, screenHeight, categroname),
         _buildGridView(screenWidth, screenHeight),
       ],
     );
@@ -123,7 +130,7 @@ class _Dashboard2State extends State<Dashboard2> {
 
   Widget _buildLogoContainer(double screenHeight) {
     return Padding(
-      padding: EdgeInsets.only(top: screenHeight * 0.68),
+      padding: EdgeInsets.only(top: screenHeight * 0.65),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -160,7 +167,8 @@ class _Dashboard2State extends State<Dashboard2> {
     );
   }
 
-  Widget _buildCategories(double screenWidth, double screenHeight) {
+  Widget _buildCategories(
+      double screenWidth, double screenHeight, String catrgoname) {
     return Obx(() => Padding(
           padding: EdgeInsets.only(top: screenHeight * 0.245),
           child: Column(
@@ -184,7 +192,7 @@ class _Dashboard2State extends State<Dashboard2> {
                     child: GestureDetector(
                       onTap: () {
                         if (item.columnAndBeam) {
-                          _showBottomSheet(context, item);
+                          _showBottomSheet(context, item, item.name,catrgoname);
                         } else {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -192,6 +200,8 @@ class _Dashboard2State extends State<Dashboard2> {
                                 images: item.images,
                                 categoryId: item.categoryId,
                                 subcategoryId: item.id,
+                                subcatroyesname: item.name,
+                                catergonme: catrgoname,
                               ),
                             ),
                           );
@@ -300,7 +310,7 @@ class _Dashboard2State extends State<Dashboard2> {
   }
 
   Future<void> _initializeData() async {
-    await TokenStorage.loadToken(); // Load the token before making requests
+    await TokenStorage.loadToken();
     fetchData();
   }
 
@@ -342,7 +352,11 @@ class _Dashboard2State extends State<Dashboard2> {
   }
 }
 
-void _showBottomSheet(BuildContext context, SubCategory subCategory) {
+void _showBottomSheet(
+  BuildContext context,
+  SubCategory subCategory,
+  subnamee, categrname
+) {
   showModalBottomSheet(
     backgroundColor: Colors.white,
     context: context,
@@ -362,6 +376,8 @@ void _showBottomSheet(BuildContext context, SubCategory subCategory) {
                         images: subCategory.beamImages,
                         categoryId: subCategory.categoryId,
                         subcategoryId: subCategory.id,
+                        subcatroyesname: subnamee,
+                        catergonme: categrname,
                       ),
                     ),
                   );
@@ -398,6 +414,8 @@ void _showBottomSheet(BuildContext context, SubCategory subCategory) {
                         images: subCategory.images,
                         categoryId: subCategory.categoryId,
                         subcategoryId: subCategory.id,
+                        subcatroyesname: subnamee,
+                        catergonme: categrname,
                       ),
                     ),
                   );

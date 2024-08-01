@@ -43,7 +43,6 @@ class _RepairMethodologyPageState extends State<RepairMethodologyPage> {
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
-
           },
           child: const Icon(
             CupertinoIcons.back,

@@ -17,7 +17,6 @@ class AuthController extends GetxController implements GetxService {
   var information = <String>[].obs;
   var image = <String>[].obs;
   var form = <String>[].obs;
-
   /// Login Api==================================
   Future<Response> loginapi({
     required BuildContext context,

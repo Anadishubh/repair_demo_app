@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'package:aci_app/constants/font_constant.dart';
 import 'package:aci_app/controller/auth_controller.dart';
@@ -23,27 +25,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<CategoryElement> categories = [];
   bool isLoading = true;
 
-  Future<bool> _onWillPop() async {
-    final shouldExit = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Confirm Exit'),
-        content: const Text('Are you sure you want to exit the app?'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes'),
-          ),
-        ],
-      ),
-    );
-    return shouldExit ?? false;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -55,23 +36,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return PopScope(
-      onPopInvoked: (canPop) async {
-        if (!canPop) {
-          bool shouldExit = await _onWillPop();
-          if (shouldExit) {
-            // Exit the app or navigate to a different screen
-          }
-        }
-      },
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: _buildAppBar(screenWidth),
-        body: isLoading
-            ? _buildLoadingIndicator()
-            : _buildDashboard(screenWidth, screenHeight),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(screenWidth),
+      body: isLoading
+          ? _buildLoadingIndicator()
+          : _buildDashboard(screenWidth, screenHeight),
     );
   }
 
@@ -89,7 +59,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildLoadingIndicator() {
     return const Center(
-      child: CircularProgressIndicator(color: AppColors.primaryColor,),
+      child: CircularProgressIndicator(
+        color: AppColors.primaryColor,
+      ),
     );
   }
 
@@ -235,6 +207,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           builder: (context) => Dashboard2(
                             remainingItems: remainingItems,
                             categoryId: item.id,
+                            categroyname: item.name,
                           ),
                         ),
                       );
@@ -280,6 +253,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> _initializeData() async {
     await TokenStorage.loadToken(); // Load the token before making requests
+
+    // Introduce a 1-second delay
+    await Future.delayed(const Duration(seconds: 1));
+
     fetchData();
   }
 

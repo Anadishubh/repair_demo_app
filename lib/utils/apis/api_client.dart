@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, avoid_print
+
 import 'dart:convert';
 import 'package:aci_app/constants/app_constant.dart';
 import 'package:aci_app/utils/apis/api_checker.dart';
@@ -144,6 +146,7 @@ class ApiClient extends GetxService {
     dynamic body;
     try {
       body = jsonDecode(response.body);
+    // ignore: empty_catches
     } catch (e) {}
     Response response0 = Response(
       body: body ?? response.body,

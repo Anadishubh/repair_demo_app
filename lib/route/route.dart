@@ -44,7 +44,7 @@ class AppRoutes {
     ),
     GetPage(
       name: corrosion,
-      page: () => const CorrosionScreen(),
+      page: () =>  const CorrosionScreen(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
@@ -56,13 +56,13 @@ class AppRoutes {
     ),
     GetPage(
       name: visit,
-      page: () => ArrangeVisitPage(),
+      page: () => const ArrangeVisitPage(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
     GetPage(
       name: faq,
-      page: () => const FaqPage(),
+      page: () =>  const FaqPage(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 400),
     ),
