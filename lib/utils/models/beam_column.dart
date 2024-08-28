@@ -7,6 +7,8 @@ class SubCategory {
   final String faq;
   final bool columnAndBeam;
   final String question;
+  final List<String> imagesName;
+  final List<String> beamImagesName;
 
   SubCategory({
     required this.id,
@@ -16,7 +18,9 @@ class SubCategory {
     required this.beamImages,
     required this.faq,
     required this.columnAndBeam,
-    required this.question
+    required this.question,
+    required this.imagesName,
+    required this.beamImagesName,
   });
 
   factory SubCategory.fromJson(Map<String, dynamic> json) {
@@ -39,6 +43,18 @@ class SubCategory {
       ].whereType<String>().toList(),
       faq: json['faq'],
       columnAndBeam: json['column_and_beam'] == 'Yes',
+      imagesName: [
+        json['image_title_1'],
+        json['image_title_2'],
+        json['image_title_3'],
+        json['image_title_4'],
+      ].whereType<String>().toList(),
+      beamImagesName: [
+        json['image_title_5'],
+        json['image_title_6'],
+        json['image_title_7'],
+        json['image_title_8'],
+      ].whereType<String>().toList(),
     );
   }
 }

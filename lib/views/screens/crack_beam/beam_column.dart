@@ -13,6 +13,8 @@ import '../signup/signup_screen.dart';
 
 class BeamColumn extends StatefulWidget {
   final List<String> images;
+  List<String>? imagesName;
+  List<String>? beamImagesName;
   final int? categoryId;
   final int? subcategoryId;
   String? subcatroyesname;
@@ -21,6 +23,8 @@ class BeamColumn extends StatefulWidget {
   BeamColumn(
       {super.key,
       required this.images,
+      this.beamImagesName,
+      this.imagesName,
       this.categoryId,
       this.subcategoryId,
       this.subcatroyesname,
@@ -43,6 +47,7 @@ class _BeamColumnState extends State<BeamColumn> {
     _initializeData();
   }
 
+  String? iamgeeee;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -95,7 +100,8 @@ class _BeamColumnState extends State<BeamColumn> {
                       ],
                     ),
                   ),
-                  _buildYesNoButtons(context,widget.catergonme,widget.subcatroyesname),
+                  _buildYesNoButtons(
+                      context, widget.catergonme, widget.subcatroyesname),
                 ],
               ),
             ),
@@ -120,7 +126,18 @@ class _BeamColumnState extends State<BeamColumn> {
           ),
           itemCount: widget.images.length,
           itemBuilder: (context, index) {
-            return _buildImageTile(widget.images[index], screenWidth);
+            if (widget.imagesName == null) {
+              iamgeeee = index < widget.beamImagesName!.length
+                  ? widget.beamImagesName![index]
+                  : "";
+            } else {
+              iamgeeee = index < widget.imagesName!.length
+                  ? widget.imagesName![index]
+                  : "";
+            }
+
+            return _buildImageTile(
+                widget.images[index], screenWidth, iamgeeee.toString());
           },
         ),
       ),
@@ -138,33 +155,43 @@ class _BeamColumnState extends State<BeamColumn> {
     return 2.25 / 2;
   }
 
-  Widget _buildImageTile(String imageUrl, double screenWidth) {
-    return GestureDetector(
-      onTap: () => _showFullScreenImage(context, imageUrl),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(screenWidth * 0.02),
-          border: Border.all(
-            color: Colors.black,
-            width: 0.5,
-          ),
-          image: DecorationImage(
-            image: NetworkImage('https://aci.aks.5g.in/$imageUrl'),
-            fit: BoxFit.cover,
-            onError: (error, stackTrace) => Center(
-              child: Icon(
-                Icons.error,
-                color: Colors.red,
-                size: screenWidth * 0.1,
+  Widget _buildImageTile(
+    String imageUrl,
+    double screenWidth,
+    String imagename,
+  ) {
+    return imagename == null
+        ? const SizedBox()
+        : GestureDetector(
+            onTap: () => _showFullScreenImage(context, imageUrl, imagename),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 0.5,
+                ),
+                image: DecorationImage(
+                  image: NetworkImage('https://aci.aks.5g.in/$imageUrl'),
+                  fit: BoxFit.cover,
+                  onError: (error, stackTrace) => Center(
+                    child: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                      size: screenWidth * 0.1,
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 
-  void _showFullScreenImage(BuildContext context, String imageUrl) {
+  void _showFullScreenImage(
+      BuildContext context,
+      String imageUrl,
+      String imageName,
+      ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -182,8 +209,7 @@ class _BeamColumnState extends State<BeamColumn> {
                     child: Image.network(
                       'https://aci.aks.5g.in/$imageUrl',
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Center(
+                      errorBuilder: (context, error, stackTrace) => const Center(
                         child: Icon(
                           Icons.error,
                           color: Colors.red,
@@ -192,12 +218,29 @@ class _BeamColumnState extends State<BeamColumn> {
                       ),
                     ),
                   ),
-                  IconButton(
-                    icon:
-                        const Icon(Icons.cancel, color: Colors.black, size: 30),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                  Positioned(
+                    bottom: 20,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Text(
+                        imageName,
+                        style: FontConstant.styleBold(
+                          fontSize: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: IconButton(
+                      icon: const Icon(Icons.cancel, color: Colors.black, size: 30),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -208,7 +251,8 @@ class _BeamColumnState extends State<BeamColumn> {
     );
   }
 
-  Widget _buildYesNoButtons(BuildContext context,String? catname,String?subcatname) {
+  Widget _buildYesNoButtons(
+      BuildContext context, String? catname, String? subcatname) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),

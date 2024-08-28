@@ -43,12 +43,16 @@ dependencies:
   shared_preferences: ^2.2.3
   flutter_smart_dialog: ^4.9.7+8
   flutter_easyloading: ^3.0.5
-  flutter_html: ^2.2.1
-  flutter_widget_from_html: ^0.9.1
+  flutter_html: ^3.0.0-beta.2
+  flutter_widget_from_html: ^0.14.11
   url_launcher: ^6.0.9
   flutter_share: ^2.0.0
-  share_plus: ^6.0.0
-  flutter_launcher_icons: ^0.11.0
+  share_plus: ^7.2.2
+  flutter_launcher_icons: ^0.13.1
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  otp_text_field: ^1.1.3
+  alt_sms_autofill: ^1.0.0
 
 
 dev_dependencies:

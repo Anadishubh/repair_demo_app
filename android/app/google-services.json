@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "181973749758",
+    "project_id": "aci-468fa",
+    "storage_bucket": "aci-468fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181973749758:android:eac8a18e73c87d6554baaf",
+        "android_client_info": {
+          "package_name": "com.example.aci_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_IXW21ZxnvJBVoeZ6waIuPted5hBKuoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

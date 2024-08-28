@@ -12,7 +12,6 @@ import 'package:http/http.dart' as http;
 import '../../../utils/models/dashboard.dart';
 import '../crack_beam/beam_column.dart';
 
-// ignore: must_be_immutable
 class Dashboard2 extends StatefulWidget {
   final List<CategoryElement> remainingItems;
   int? categoryId;
@@ -192,7 +191,8 @@ class _Dashboard2State extends State<Dashboard2> {
                     child: GestureDetector(
                       onTap: () {
                         if (item.columnAndBeam) {
-                          _showBottomSheet(context, item, item.name,catrgoname);
+                          _showBottomSheet(
+                              context, item, item.name, catrgoname);
                         } else {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -202,6 +202,8 @@ class _Dashboard2State extends State<Dashboard2> {
                                 subcategoryId: item.id,
                                 subcatroyesname: item.name,
                                 catergonme: catrgoname,
+                                imagesName: item.imagesName,
+                                beamImagesName: item.beamImagesName,
                               ),
                             ),
                           );
@@ -353,10 +355,7 @@ class _Dashboard2State extends State<Dashboard2> {
 }
 
 void _showBottomSheet(
-  BuildContext context,
-  SubCategory subCategory,
-  subnamee, categrname
-) {
+    BuildContext context, SubCategory subCategory, subnamee, categrname) {
   showModalBottomSheet(
     backgroundColor: Colors.white,
     context: context,
@@ -369,10 +368,10 @@ void _showBottomSheet(
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.back();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => BeamColumn(
+                        beamImagesName: subCategory.beamImagesName,
                         images: subCategory.beamImages,
                         categoryId: subCategory.categoryId,
                         subcategoryId: subCategory.id,
@@ -407,10 +406,10 @@ void _showBottomSheet(
               ),
               GestureDetector(
                 onTap: () {
-                  Get.back();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => BeamColumn(
+                        imagesName: subCategory.imagesName,
                         images: subCategory.images,
                         categoryId: subCategory.categoryId,
                         subcategoryId: subCategory.id,
@@ -431,7 +430,7 @@ void _showBottomSheet(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     Text(
-                      'Column',
+                      'Colunnnmn',
                       style: FontConstant.styleRegular(
                         fontSize: MediaQuery.of(context).size.width * 0.05,
                         color: Colors.black,
